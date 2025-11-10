@@ -1,0 +1,16 @@
+﻿CREATE TABLE "Users"
+(
+"Id" BIGINT IDENTITY(1,1) PRIMARY KEY,
+"Name" VARCHAR(255) NOT NULL,
+"EmailAddress" VARCHAR(255) NOT NULL,
+"Password" VARCHAR(255) NOT NULL,
+"Age" INT,
+"MobileNumber" BIGINT NOT NULL,
+"Otp" VARCHAR(10),
+"OtpExpiry" DATETIMEOFFSET,
+"RoleId" INT NOT NULL,
+"CreatedDateTime" DATETIMEOFFSET NOT NULL,
+"UpdatedDateTime" DATETIMEOFFSET,
+"Status" VARCHAR(20),
+CONSTRAINT [FK_User_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[Role]([Id])
+)
