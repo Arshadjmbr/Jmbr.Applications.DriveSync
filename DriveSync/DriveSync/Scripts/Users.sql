@@ -11,6 +11,6 @@
 "RoleId" INT NOT NULL,
 "CreatedDateTime" DATETIMEOFFSET NOT NULL,
 "UpdatedDateTime" DATETIMEOFFSET,
-"Status" VARCHAR(20),
+"Status" INT,
 CONSTRAINT [FK_User_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[Role]([Id])
 )

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DriveSync.Entity.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace DriveSync.DBContext
 {
@@ -8,5 +9,6 @@ namespace DriveSync.DBContext
         {
 
         }
+        public DbSet<Users> Users { get; set; }
     }
 }
