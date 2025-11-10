@@ -6,13 +6,13 @@
         public string Name { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public long MobileNumber { get; set; }
-        public string Otp { get; set; }
-        public DateTime OtpExpiry { get; set; }
+        public string? Otp { get; set; }
+        public DateTimeOffset? OtpExpiry { get; set; }
         public int RoleId { get; set; }
-        public int Status { get; set; }
-        public DateTime CreatedDateTime  { get; set; }
-        public DateTime UpdatedDateTime  { get; set; }
+        public int? Status { get; set; }
+        public DateTimeOffset CreatedDateTime  { get; set; }
+        public DateTimeOffset? UpdatedDateTime  { get; set; }
     }
 }

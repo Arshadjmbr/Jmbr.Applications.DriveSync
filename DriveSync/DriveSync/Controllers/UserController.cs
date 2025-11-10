@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.Controllers
 {
-    [Route("api/v1/Drive-Sync/Users")]
+    [Route("api/v1/Drive-Sync/users")]
     [ApiController]
     public class UserController(IUserBl mUserBl): ControllerBase
     {
