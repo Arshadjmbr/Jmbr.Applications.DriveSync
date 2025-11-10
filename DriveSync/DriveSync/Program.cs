@@ -1,3 +1,7 @@
+using DriveSync.BusinessLogic;
+using DriveSync.BusinessLogic.IBusinesLogic;
+using DriveSync.BusinessRepository;
+using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DBContext;
 using DriveSync.Services;
 using DriveSync.Services.IServices;
@@ -7,8 +11,8 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddDbContext<DriveSyncDbContext>(options => options.UseSqlServer
-           //(builder.Configuration.GetConnectionString("DbConnection")));
+builder.Services.AddDbContext<DriveSyncDbContext>(options => options.UseSqlServer
+           (builder.Configuration.GetConnectionString("DbConnection")));
 
 //Add Migrations
 builder.Services.AddLogging(c => c.AddFluentMigratorConsole())
@@ -19,6 +23,8 @@ builder.Services.AddLogging(c => c.AddFluentMigratorConsole())
 .ScanIn(Assembly.GetExecutingAssembly()).For.Migrations().For.EmbeddedResources());
 
 builder.Services.AddTransient<ISqlService, SqlService>();
+builder.Services.AddTransient<IUserBl, UserBl>();
+builder.Services.AddTransient<IUserBr, UserBr>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

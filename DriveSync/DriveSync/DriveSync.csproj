@@ -18,8 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Entity\" />
+    <Folder Include="Entity\Response\" />
   </ItemGroup>
 
 </Project>
