@@ -3,6 +3,7 @@ using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.BusinessRepository;
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DBContext;
+using DriveSync.ExceptionHandler;
 using DriveSync.MiddleWare;
 using DriveSync.Services;
 using DriveSync.Services.IServices;
@@ -29,6 +30,16 @@ builder.Services.AddTransient<IUserBl, UserBl>();
 builder.Services.AddTransient<IUserBr, UserBr>();
 builder.Services.AddTransient<ILoginBl, LoginBl>();
 builder.Services.AddTransient<ILoginBr, LoginBr>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // your frontend URL
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -75,12 +86,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
 app.UseMiddleware<JwtTokenValidationMiddleWare>();
 
 app.MigrateDatabase();
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

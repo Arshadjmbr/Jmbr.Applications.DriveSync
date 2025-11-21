@@ -16,7 +16,7 @@ namespace DriveSync.Controllers
         {
             try
             {
-                string response = await mUserBl.CreateUser(createUserRequest);
+                var response = await mUserBl.CreateUser(createUserRequest);
                 return Ok(response);
             }
             catch (PlatformException ex)

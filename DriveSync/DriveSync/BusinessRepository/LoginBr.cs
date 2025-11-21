@@ -5,8 +5,10 @@ using DriveSync.DBContext;
 using DriveSync.Entity.Model;
 using DriveSync.Entity.Request;
 using DriveSync.Entity.Response;
+using DriveSync.ExceptionHandler;
 using DriveSync.Hashing;
 using DriveSync.Utility;
+using System.Net;
 using System.Runtime.CompilerServices;
 
 namespace DriveSync.BusinessRepository
@@ -19,11 +21,11 @@ namespace DriveSync.BusinessRepository
             string hashedPassword = PasswordHashing.HashingPassword(loginRequest.Password);
             if (user == null)
             {
-                throw new BadHttpRequestException("Invalid Credentials!");
+                throw new PlatformException((int)HttpStatusCode.BadRequest, "Invalid Credentials!");
             }
             if (user.Password != hashedPassword)
             {
-                throw new BadHttpRequestException("Invalid Credentials!");
+                throw new PlatformException((int)HttpStatusCode.BadRequest, "Invalid Credentials!");
             }
 
             string clientIdKey = mHttpContextAccessor.HttpContext.Request.Headers[TokenConstants.CLIENT_ID_KEY].ToString();
@@ -36,7 +38,7 @@ namespace DriveSync.BusinessRepository
 
             if (decodeclientIdKey != TokenConstants.TOKEN_CLAIM_TYPE_CLIENT_ID_VALUE && decodedclientSecretKey != TokenConstants.TOKEN_CLAIM_TYPE_SECRET_ID_VALUE)
             {
-                throw new UnauthorizedAccessException("Invalid client credentials");
+                throw new PlatformException((int)HttpStatusCode.Unauthorized, "Invalid client credentials");
             }
 
             string scope = mConfiguration["AuthUrl:Audience"];
