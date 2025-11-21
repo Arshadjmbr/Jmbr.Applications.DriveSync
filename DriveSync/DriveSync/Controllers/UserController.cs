@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.Controllers
 {
-    [Route("api/v1/Drive-Sync/Users")]
+    [Route("api/v1/Drive-Sync/users")]
     [ApiController]
     public class UserController(IUserBl mUserBl): ControllerBase
     {
@@ -16,7 +16,7 @@ namespace DriveSync.Controllers
         {
             try
             {
-                string response = await mUserBl.CreateUser(createUserRequest);
+                var response = await mUserBl.CreateUser(createUserRequest);
                 return Ok(response);
             }
             catch (PlatformException ex)
