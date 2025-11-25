@@ -2,9 +2,9 @@
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.Constants;
 using DriveSync.DBContext;
+using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
-using DriveSync.Entity.Request;
-using DriveSync.Entity.Response;
 using DriveSync.ExceptionHandler;
 using DriveSync.Hashing;
 using DriveSync.Utility;

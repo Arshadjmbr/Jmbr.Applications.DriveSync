@@ -1,6 +1,6 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.DBContext;
-using DriveSync.Entity.Request;
+using DriveSync.DTOS.Request;
 using DriveSync.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,5 +24,20 @@ namespace DriveSync.Controllers
                 return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
         }
+
+        [HttpPost("drivers")]
+        public async Task<IActionResult> CreateDrivers(CreateDriverRequest createDriversRequest)
+        {
+            try
+            {
+                var response = await mUserBl.CreateDrivers(createDriversRequest);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
+
     }
 }
