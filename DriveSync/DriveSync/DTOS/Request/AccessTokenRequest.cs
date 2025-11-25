@@ -1,4 +1,4 @@
-﻿namespace DriveSync.Entity.Request
+﻿namespace DriveSync.DTOS.Request
 {
     public class AccessTokenRequest
     {

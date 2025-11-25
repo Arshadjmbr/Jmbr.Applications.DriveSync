@@ -1,4 +1,4 @@
-﻿namespace DriveSync.Entity.Response
+﻿namespace DriveSync.DTOS.Response
 {
     public class TokenResponse
     {

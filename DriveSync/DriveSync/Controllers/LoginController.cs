@@ -1,6 +1,6 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
-using DriveSync.Entity.Request;
-using DriveSync.Entity.Response;
+using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,7 +1,7 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.BusinessRepository.IBusinessRepository;
-using DriveSync.Entity.Request;
-using DriveSync.Entity.Response;
+using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
 
 namespace DriveSync.BusinessLogic
 {
