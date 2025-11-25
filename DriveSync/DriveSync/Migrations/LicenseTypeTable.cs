@@ -2,7 +2,7 @@
 
 namespace DriveSync.Migrations
 {
-    [Migration(20251110120000)]
+    [Migration(20251111130000)]
     public class LicenseTypeTable: Migration
     {
         public override void Down()
