@@ -1,0 +1,6 @@
+﻿CREATE TABLE "VehicleType"
+(
+"Id" INT IDENTITY(1,1) PRIMARY KEY,
+"Type" VARCHAR(255) NOT NULL,
+"Description" VARCHAR(MAX)
+)
