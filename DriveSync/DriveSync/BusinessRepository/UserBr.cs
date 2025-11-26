@@ -1,17 +1,22 @@
-﻿using DriveSync.BusinessRepository.IBusinessRepository;
+﻿using Dapper;
+using DriveSync.BusinessRepository.IBusinessRepository;
+using DriveSync.Dapper.Drivers;
 using DriveSync.DBContext;
 using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
 using DriveSync.ExceptionHandler;
 using DriveSync.Generator;
 using DriveSync.Hashing;
+using DriveSync.Services.IServices;
+using Microsoft.Data.SqlClient;
 using System.Net;
 using System.Text.RegularExpressions;
 using static DriveSync.Enum;
 
 namespace DriveSync.BusinessRepository
 {
-    public class UserBr(DriveSyncDbContext mDriveSyncDbContext) : IUserBr
+    public class UserBr(DriveSyncDbContext mDriveSyncDbContext, ISqlService mSqlService) : IUserBr
     {
         public async Task<string> CreateUser(CreateUserRequest createUserRequest)
         {
@@ -57,7 +62,7 @@ namespace DriveSync.BusinessRepository
             Drivers driver = new Drivers
             {
                 Name = createDriversRequest.Name,
-                EmailAddress = createDriversRequest.EmailAddress,
+                Email = createDriversRequest.EmailAddress,
                 Age = createDriversRequest.Age,
                 StaffIdNum = createDriversRequest.StaffIdNum ?? "",
                 MobileNumber = createDriversRequest.MobileNumber,
@@ -74,10 +79,35 @@ namespace DriveSync.BusinessRepository
                 Remarks = createDriversRequest.Remarks,
                 Deleted = 0
             };
-            await mDriveSyncDbContext.Drivers.AddAsync(driver);
+            await mDriveSyncDbContext.Driver.AddAsync(driver);
 
             await mDriveSyncDbContext.SaveChangesAsync();
-            return "Drivers created successfully.";
+            return "Driver created successfully.";
+        }
+
+        public async Task<List<EmirateZoneResponse>> GetZone()
+        {
+            List<EmirateZoneResponse> zones = new List<EmirateZoneResponse>();
+            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            {
+                await sqlConnection.OpenAsync();
+                var zoneresponses = await sqlConnection.QueryAsync<EmirateZoneResponse>(DriverResource.GetEmirateZone);
+                zones = zoneresponses.ToList();
+                await sqlConnection.CloseAsync();
+            }
+            return zones;
+        }
+        public async Task<List<LicenseTypeResponse>> GetLicenseType()
+        {
+            List<LicenseTypeResponse> licenseTypes = new List<LicenseTypeResponse>();
+            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            {
+                await sqlConnection.OpenAsync();
+                var licenseTyperesponses = await sqlConnection.QueryAsync<LicenseTypeResponse>(DriverResource.GetLicenseTypes);
+                licenseTypes = licenseTyperesponses.ToList();
+                await sqlConnection.CloseAsync();
+            }
+            return licenseTypes;
         }
     }
 }

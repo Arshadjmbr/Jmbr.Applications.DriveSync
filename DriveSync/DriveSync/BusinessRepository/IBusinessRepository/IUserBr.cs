@@ -1,4 +1,5 @@
 ﻿using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
 
 namespace DriveSync.BusinessRepository.IBusinessRepository
 {
@@ -6,5 +7,8 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
     {
         Task<string> CreateUser(CreateUserRequest createUserRequest);
         Task<string> CreateDrivers(CreateDriverRequest createDriversRequest);
+        Task<List<EmirateZoneResponse>> GetZone();
+        Task<List<LicenseTypeResponse>> GetLicenseType();
+
     }
 }
