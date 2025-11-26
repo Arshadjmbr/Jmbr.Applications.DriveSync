@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public int Age { get; set; }
         public string? StaffIdNum { get; set; }
-        public string? EmailAddress { get; set; }
+        public string? Email { get; set; }
         public long MobileNumber { get; set; }
         public string? EmiratesId { get; set; }
         public string? PassportNum { get; set; }
