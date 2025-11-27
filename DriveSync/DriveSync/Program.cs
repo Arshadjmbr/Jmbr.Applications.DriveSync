@@ -30,6 +30,8 @@ builder.Services.AddTransient<IUserBl, UserBl>();
 builder.Services.AddTransient<IUserBr, UserBr>();
 builder.Services.AddTransient<ILoginBl, LoginBl>();
 builder.Services.AddTransient<ILoginBr, LoginBr>();
+builder.Services.AddTransient<IVehicleBl, VehicleBl>();
+builder.Services.AddTransient<IVehicleBr, VehicleBr>();
 
 builder.Services.AddCors(options =>
 {
