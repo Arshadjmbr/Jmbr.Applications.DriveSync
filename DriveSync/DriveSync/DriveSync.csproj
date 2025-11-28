@@ -23,6 +23,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DriverResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Dapper\RentalCompanies\RentalCompanyResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RentalCompanyResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Dapper\Vehicle\VehicleResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -34,6 +39,10 @@
     <EmbeddedResource Update="Dapper\Drivers\DriverResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DriverResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Dapper\RentalCompanies\RentalCompanyResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RentalCompanyResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Dapper\Vehicle\VehicleResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

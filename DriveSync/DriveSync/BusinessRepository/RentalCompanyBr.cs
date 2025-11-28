@@ -1,12 +1,17 @@
-﻿using DriveSync.BusinessRepository.IBusinessRepository;
+﻿using Dapper;
+using DriveSync.BusinessRepository.IBusinessRepository;
+using DriveSync.Dapper.RentalCompanies;
 using DriveSync.DBContext;
 using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
+using DriveSync.Services.IServices;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DriveSync.BusinessRepository
 {
-    public class RentalCompanyBr(DriveSyncDbContext mDriveSyncDbContext):IRentalCompanyBr
+    public class RentalCompanyBr(DriveSyncDbContext mDriveSyncDbContext, ISqlService mSqlService):IRentalCompanyBr
     {
         public async Task<string> Register(RegisterCompaniesRequest request)
         {
@@ -36,6 +41,19 @@ namespace DriveSync.BusinessRepository
             await mDriveSyncDbContext.SaveChangesAsync();
             return "Company Registered";
 
+        }
+
+        public async Task<List<RentalCompanyResponse>> GetRentalCompanies()
+        {
+            List<RentalCompanyResponse> response = new List<RentalCompanyResponse>();
+            using (SqlConnection sqlconnection = mSqlService.GetSqlConnection())
+            {
+                await sqlconnection.OpenAsync();
+                var responses = await sqlconnection.QueryAsync<RentalCompanyResponse>(RentalCompanyResource.GetRentalCompanies);
+                response = responses.ToList();
+                await sqlconnection.CloseAsync();
+            }
+            return response;
         }
     }
 }

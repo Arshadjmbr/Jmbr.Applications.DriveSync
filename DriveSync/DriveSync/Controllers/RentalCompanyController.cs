@@ -23,7 +23,20 @@ namespace DriveSync.Controllers
                 return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
 
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> GetRentalCompanies()
+        {
+            try
+            {
+                var response = await mRentalCompanyBl.GetRentalCompanies();
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
         }
     }
 }
