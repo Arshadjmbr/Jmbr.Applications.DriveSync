@@ -11,5 +11,6 @@ namespace DriveSync.DBContext
         }
         public DbSet<Users> Users { get; set; }
         public DbSet<Drivers> Driver { get; set; }
+        public DbSet<RentalCompanies> RentalCompanies { get; set; }
     }
 }
