@@ -11,18 +11,6 @@ namespace DriveSync.BusinessLogic
         {
             return await mUserBr.CreateUser(createUserRequest);
         }
-        public async Task<string> CreateDrivers(CreateDriverRequest createDriversRequest)
-        {
-            return await mUserBr.CreateDrivers(createDriversRequest);
-        }
-
-        public async Task<List<EmirateZoneResponse>> GetZone()
-        {
-            return await mUserBr.GetZone();
-        }
-        public async Task<List<LicenseTypeResponse>> GetLicenseType()
-        {
-            return await mUserBr.GetLicenseType();
-        }
+      
     }
 }
