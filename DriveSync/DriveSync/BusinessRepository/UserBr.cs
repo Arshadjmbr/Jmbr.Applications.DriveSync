@@ -52,62 +52,6 @@ namespace DriveSync.BusinessRepository
             return "User created successfully.";
         }
 
-        public async Task<string> CreateDrivers(CreateDriverRequest createDriversRequest)
-        {
-            Users? existingUser = mDriveSyncDbContext.Users.Where(u => u.EmailAddress == createDriversRequest.EmailAddress).FirstOrDefault();
-            if (existingUser != null)
-            {
-                throw new PlatformException((int)HttpStatusCode.Conflict, $"A user with the email address {createDriversRequest.EmailAddress} already exists.");
-            }
-            Drivers driver = new Drivers
-            {
-                Name = createDriversRequest.Name,
-                Email = createDriversRequest.EmailAddress,
-                Age = createDriversRequest.Age,
-                StaffIdNum = createDriversRequest.StaffIdNum ?? "",
-                MobileNumber = createDriversRequest.MobileNumber,
-                EmiratesId = createDriversRequest.EmiratesId,
-                PassportNum = createDriversRequest.PassportNum,
-                LicenseType = createDriversRequest.LicenseType,
-                LicenseNumber = createDriversRequest.LicenseNumber,
-                LicenseExpiryDate = createDriversRequest.LicenseExpiryDate,
-                EmiratesZone = createDriversRequest.EmiratesZone,
-                JoiningDate = createDriversRequest.JoiningDate,
-                IsActive = (int)Status.Active,
-                CreatedDateTime = DateTime.UtcNow,
-                UpdatedDateTime = DateTime.UtcNow,
-                Remarks = createDriversRequest.Remarks,
-                Deleted = 0
-            };
-            await mDriveSyncDbContext.Driver.AddAsync(driver);
-
-            await mDriveSyncDbContext.SaveChangesAsync();
-            return "Driver created successfully.";
-        }
-
-        public async Task<List<EmirateZoneResponse>> GetZone()
-        {
-            List<EmirateZoneResponse> zones = new List<EmirateZoneResponse>();
-            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
-            {
-                await sqlConnection.OpenAsync();
-                var zoneresponses = await sqlConnection.QueryAsync<EmirateZoneResponse>(DriverResource.GetEmirateZone);
-                zones = zoneresponses.ToList();
-                await sqlConnection.CloseAsync();
-            }
-            return zones;
-        }
-        public async Task<List<LicenseTypeResponse>> GetLicenseType()
-        {
-            List<LicenseTypeResponse> licenseTypes = new List<LicenseTypeResponse>();
-            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
-            {
-                await sqlConnection.OpenAsync();
-                var licenseTyperesponses = await sqlConnection.QueryAsync<LicenseTypeResponse>(DriverResource.GetLicenseTypes);
-                licenseTypes = licenseTyperesponses.ToList();
-                await sqlConnection.CloseAsync();
-            }
-            return licenseTypes;
-        }
+      
     }
 }

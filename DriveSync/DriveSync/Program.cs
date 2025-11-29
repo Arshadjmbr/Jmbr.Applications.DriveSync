@@ -34,6 +34,8 @@ builder.Services.AddTransient<IVehicleBl, VehicleBl>();
 builder.Services.AddTransient<IVehicleBr, VehicleBr>();
 builder.Services.AddTransient<IRentalCompanyBl, RentalCompanyBl>();
 builder.Services.AddTransient<IRentalCompanyBr, RentalCompanyBr>();
+builder.Services.AddTransient<IDriverBr, DriverBr>();
+builder.Services.AddTransient<IDriverBl, DriverBl>();
 
 builder.Services.AddCors(options =>
 {
