@@ -2,11 +2,14 @@
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.Dapper.Vehicle;
 using DriveSync.DBContext;
+using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
+using DriveSync.Entity.Model;
 using DriveSync.Services.IServices;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
-namespace DriveSync.BusinessRepository
+namespace DriveSync.BusinessRepository  
 {
     public class VehicleBr(DriveSyncDbContext mDriveSyncDbContext, ISqlService mSqlService):IVehicleBr
     {
@@ -21,6 +24,46 @@ namespace DriveSync.BusinessRepository
                 await sqlConnection.CloseAsync();
             }
             return vehicleTypes;
+        }
+
+        public async Task<string> CreateVehicle(CreateVehicleRequest request)
+        {
+            string plateNum = request.PlateNumber?.Trim().ToLowerInvariant();
+            bool exists = await mDriveSyncDbContext.Vehicle.AnyAsync(c => c.PlateNumber.Trim().ToLower() == plateNum && c.Deleted ==0);
+            if (exists)
+            {
+                return "Vehicle Already Added";
+            }
+
+            Vehicle vehicle = new Vehicle()
+            {
+                PlateNumber = request.PlateNumber,
+                VehicleTypeId = request.VehicleTypeId,
+                Model = request.Model,
+                Category = request.Category,
+                RentalCompanyid = request.RentalCompanyid,
+                IsActive = 1,
+                CreatedDateTime = DateTime.UtcNow,
+                UpdatedDateTime = DateTime.UtcNow,
+                Remarks = request.Remarks,
+                Deleted = 0
+            };
+            await mDriveSyncDbContext.Vehicle.AddAsync(vehicle);
+            await mDriveSyncDbContext.SaveChangesAsync();
+            return "Vehicle Added Successfully";
+        }
+
+        public async Task<List<GetVehicleResponse>> GetVehicles()
+        {
+            List<GetVehicleResponse> responses = new List<GetVehicleResponse>();
+            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            {
+                await sqlConnection.OpenAsync();
+                var vehicleresponse = await sqlConnection.QueryAsync<GetVehicleResponse>(VehicleResource.GetVehicles);
+                responses = vehicleresponse.ToList();
+                await sqlConnection.CloseAsync();
+            }
+            return responses;
         }
     }
 }

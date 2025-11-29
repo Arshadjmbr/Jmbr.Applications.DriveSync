@@ -1,4 +1,5 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
+using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,37 @@ namespace DriveSync.Controllers
             {
                 return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateVehicle(CreateVehicleRequest createVehicleRequest)
+        {
+            try
+            {
+                var response = await mVehicleBl.CreateVehicle(createVehicleRequest);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message});
+            }
+
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> GetVehicles()
+        {
+            try
+            {
+                List<GetVehicleResponse> response = await mVehicleBl.GetVehicles();
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+
         }
     }
 }
