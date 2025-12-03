@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/Drive-Sync/driver")]
     [ApiController]
     public class DriverController(IDriverBl mDriverBl) : ControllerBase
     {
-        [HttpPost("drivers")]
+        [HttpPost]
         public async Task<IActionResult> CreateDrivers(CreateDriverRequest createDriversRequest)
         {
             try
@@ -53,6 +53,21 @@ namespace DriveSync.Controllers
             {
                 return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDrivers()
+        {
+            try
+            {
+                List<GetDriversResponse> response = await mDriverBl.GetDrivers();
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+
         }
     }
 }

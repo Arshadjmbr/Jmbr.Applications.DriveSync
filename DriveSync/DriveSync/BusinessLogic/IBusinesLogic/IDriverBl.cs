@@ -8,5 +8,6 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<string> CreateDrivers(CreateDriverRequest createDriversRequest);
         Task<List<EmirateZoneResponse>> GetZone();
         Task<List<LicenseTypeResponse>> GetLicenseType();
+        Task<List<GetDriversResponse>> GetDrivers();
     }
 }

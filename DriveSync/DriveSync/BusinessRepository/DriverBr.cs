@@ -72,5 +72,18 @@ namespace DriveSync.BusinessRepository
             }
             return licenseTypes;
         }
+
+        public async Task<List<GetDriversResponse>> GetDrivers()
+        {
+            List<GetDriversResponse> getDriversResponses = new List<GetDriversResponse>();
+            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            {
+                await sqlConnection.OpenAsync();
+                var response = await sqlConnection.QueryAsync<GetDriversResponse>(DriverResource.GetDrivers);
+                getDriversResponses = response.ToList();
+                await sqlConnection.CloseAsync();
+            }
+            return getDriversResponses;
+        }
     }
 }

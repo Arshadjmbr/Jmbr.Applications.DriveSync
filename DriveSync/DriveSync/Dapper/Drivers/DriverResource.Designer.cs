@@ -61,6 +61,15 @@ namespace DriveSync.Dapper.Drivers {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM Driver.
+        /// </summary>
+        public static string GetDrivers {
+            get {
+                return ResourceManager.GetString("GetDrivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT * FROM EmirateZone.
         /// </summary>
         public static string GetEmirateZone {
