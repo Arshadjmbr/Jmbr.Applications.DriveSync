@@ -36,6 +36,8 @@ builder.Services.AddTransient<IRentalCompanyBl, RentalCompanyBl>();
 builder.Services.AddTransient<IRentalCompanyBr, RentalCompanyBr>();
 builder.Services.AddTransient<IDriverBr, DriverBr>();
 builder.Services.AddTransient<IDriverBl, DriverBl>();
+builder.Services.AddTransient<IDashboardBl, DashboardBl>();
+builder.Services.AddTransient<IDashboardBr, DashboardBr>();
 
 builder.Services.AddCors(options =>
 {
@@ -99,7 +101,7 @@ app.MigrateDatabase();
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

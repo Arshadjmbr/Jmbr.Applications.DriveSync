@@ -1,4 +1,5 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
+using DriveSync.DTOS.Request;
 using DriveSync.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,12 @@ namespace DriveSync.Controllers
         //    }
         //}
 
-        //[HttpPost("assignments")]
+        [HttpPost("assignments")]
+        public async Task<IActionResult> AddAssignemnts(AssignmentRequest assignmentRequest)
+        { 
+            string response = await mDashboardBl.AddAssignments(assignmentRequest);
+            return Ok(response);
+        }
 
     }
 }
