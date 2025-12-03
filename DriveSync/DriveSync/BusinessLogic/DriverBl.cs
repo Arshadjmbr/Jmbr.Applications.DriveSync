@@ -20,5 +20,10 @@ namespace DriveSync.BusinessLogic
         {
             return await mDriverBr.GetLicenseType();
         }
+
+        public async Task<List<GetDriversResponse>> GetDrivers()
+        {
+            return await mDriverBr.GetDrivers();
+        }
     }
 }
