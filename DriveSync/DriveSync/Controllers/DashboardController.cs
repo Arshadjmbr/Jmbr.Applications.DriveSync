@@ -1,5 +1,6 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
 using DriveSync.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,5 +32,16 @@ namespace DriveSync.Controllers
             return Ok(response);
         }
 
+        [HttpGet("all-assignments")]
+
+        public async Task<IActionResult> GetAllAssignments([FromQuery] AssignmentPaginationRequest request, string? searchText)
+        {
+            PaginatedResponse<AssignmentsResponse> response = await mDashboardBl.GetAllAssignments(request, searchText);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
     }
 }

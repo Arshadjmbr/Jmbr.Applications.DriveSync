@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Dapper\Dashboard\DashboardResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DashboardResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Dapper\Drivers\DriverResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -36,6 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Dapper\Dashboard\DashboardResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DashboardResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Dapper\Drivers\DriverResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DriverResource.Designer.cs</LastGenOutput>
