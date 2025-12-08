@@ -1,6 +1,9 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
+using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DriveSync.BusinessLogic
 {
@@ -9,6 +12,11 @@ namespace DriveSync.BusinessLogic
         public async Task<string> AddAssignments(AssignmentRequest request)
         {
             return await mDashboardBr.AddAssignments(request);
+        }
+
+        public async Task<PaginatedResponse<AssignmentsResponse>> GetAllAssignments([FromQuery] AssignmentPaginationRequest request, string? searchText)
+        {
+            return await mDashboardBr.GetAllAssignments(request, searchText);
         }
     }
 }
