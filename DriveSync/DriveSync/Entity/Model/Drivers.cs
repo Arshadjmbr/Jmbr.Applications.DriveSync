@@ -10,16 +10,16 @@
         public long MobileNumber { get; set; }
         public string? EmiratesId { get; set; }
         public string? PassportNum { get; set; }
-        public string LicenseType { get; set; }
+        public int LicenseTypeId { get; set; }
         public string LicenseNumber { get; set; }
         public DateTime LicenseExpiryDate { get; set; }
-        public string EmiratesZone { get; set; }
+        public int EmiratesZoneId { get; set; }
         public DateTimeOffset JoiningDate { get; set; }
         public DateTimeOffset? ResignationDate { get; set; }
         public DateTime? VacationDateFrom { get; set; }
         public DateTime? VacationDateTo { get; set; }
         public short? IsActive { get; set; }
-        public int? Status { get; set; }
+        public short? Status { get; set; }
         public DateTimeOffset CreatedDateTime { get; set; }
         public DateTimeOffset? UpdatedDateTime { get; set; }
         public string? Remarks { get; set; }

@@ -61,7 +61,31 @@ namespace DriveSync.Dapper.Drivers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM Driver.
+        ///   Looks up a localized string similar to  SELECT
+        /// d.Name,
+        /// d.Age,
+        /// d.StaffIdNum,
+        /// d.Email,
+        /// d.MobileNumber,
+        /// d.EmiratesId,
+        /// d.PassportNum,
+        /// lt.Type AS &quot;LicenseType&quot;,
+        /// ez.Zone AS &quot;EmirateZone&quot;,
+        ///  d.LicenseNumber,
+        /// d.LicenseExpiryDate,
+        /// d.JoiningDate,
+        /// d.ResignationDate,
+        /// d.VacationDateFrom,
+        /// d.VacationDateTo,
+        /// d.IsActive,
+        /// d.CreatedDateTime,
+        /// d.UpdatedDateTime,
+        /// d.Deleted,
+        /// d.Remarks
+        ///FROM Driver d
+        ///JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
+        ///JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
+        ///WHERE IsActive = 1 AND Deleted = 0.
         /// </summary>
         public static string GetDrivers {
             get {

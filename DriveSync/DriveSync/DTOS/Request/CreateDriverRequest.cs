@@ -9,10 +9,10 @@
         public long MobileNumber { get; set; }
         public string? EmiratesId { get; set; }
         public string? PassportNum { get; set; }
-        public string LicenseType { get; set; }
+        public int LicenseTypeId { get; set; }
         public string LicenseNumber { get; set; }
         public DateTime LicenseExpiryDate { get; set; }
-        public string EmiratesZone { get; set; }
+        public int EmiratesZoneId { get; set; }
         public DateTimeOffset JoiningDate { get; set; }
         public string? Remarks { get; set; }
     }

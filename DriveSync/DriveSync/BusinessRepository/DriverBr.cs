@@ -17,10 +17,10 @@ namespace DriveSync.BusinessRepository
     {
         public async Task<string> CreateDrivers(CreateDriverRequest createDriversRequest)
         {
-            Users? existingUser = mDriveSyncDbContext.Users.Where(u => u.EmailAddress == createDriversRequest.EmailAddress).FirstOrDefault();
-            if (existingUser != null)
+            Drivers existingDriver = mDriveSyncDbContext.Driver.Where(u => u.PassportNum.Trim().ToLower() == createDriversRequest.PassportNum.Trim().ToLower()).FirstOrDefault();
+            if (existingDriver != null)
             {
-                throw new PlatformException((int)HttpStatusCode.Conflict, $"A user with the email address {createDriversRequest.EmailAddress} already exists.");
+                throw new PlatformException((int)HttpStatusCode.Conflict, $"A driver with {createDriversRequest.PassportNum} already exists.");
             }
             Drivers driver = new Drivers
             {
@@ -31,10 +31,10 @@ namespace DriveSync.BusinessRepository
                 MobileNumber = createDriversRequest.MobileNumber,
                 EmiratesId = createDriversRequest.EmiratesId,
                 PassportNum = createDriversRequest.PassportNum,
-                LicenseType = createDriversRequest.LicenseType,
+                LicenseTypeId = createDriversRequest.LicenseTypeId,
                 LicenseNumber = createDriversRequest.LicenseNumber,
                 LicenseExpiryDate = createDriversRequest.LicenseExpiryDate,
-                EmiratesZone = createDriversRequest.EmiratesZone,
+                EmiratesZoneId = createDriversRequest.EmiratesZoneId,
                 JoiningDate = createDriversRequest.JoiningDate,
                 IsActive = (int)Status.Active,
                 CreatedDateTime = DateTime.UtcNow,
