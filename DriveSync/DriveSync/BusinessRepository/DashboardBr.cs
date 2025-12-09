@@ -18,14 +18,14 @@ namespace DriveSync.BusinessRepository
     {
         public async Task<string> AddAssignments(AssignmentRequest request)
         {
-            var vehicle = await mDriveSyncDbContext.Vehicle.FindAsync(request.VehicleId);
+            Vehicle vehicle = await mDriveSyncDbContext.Vehicle.FindAsync(request.VehicleId);
             if (vehicle == null)
             {
                 throw new PlatformException((int)HttpStatusCode.Conflict,
                     $"Vehicle with Id {request.VehicleId} is not present in the vehicle table.");
             }
 
-            var driver = await mDriveSyncDbContext.Driver.FindAsync(request.DriverId);
+            Drivers driver = await mDriveSyncDbContext.Driver.FindAsync(request.DriverId);
             if (driver == null)
             {
                 throw new PlatformException((int)HttpStatusCode.Conflict,

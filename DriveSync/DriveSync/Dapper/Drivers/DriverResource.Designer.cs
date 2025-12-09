@@ -94,6 +94,20 @@ namespace DriveSync.Dapper.Drivers {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT
+        ///Id,
+        ///Name
+        ///FROM Driver
+        ///WHERE IsActive = 1 AND Deleted = 0 AND Status IS NULL
+        ///.
+        /// </summary>
+        public static string GetDropdownDrivers {
+            get {
+                return ResourceManager.GetString("GetDropdownDrivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT * FROM EmirateZone.
         /// </summary>
         public static string GetEmirateZone {

@@ -9,6 +9,8 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<List<EmirateZoneResponse>> GetZone();
         Task<List<LicenseTypeResponse>> GetLicenseType();
         Task<List<GetDriversResponse>> GetDrivers();
+        Task<List<GetDropdownResponse>> GetDropdowns();
+
 
     }
 }
