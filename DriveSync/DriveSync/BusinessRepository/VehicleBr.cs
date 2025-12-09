@@ -5,9 +5,12 @@ using DriveSync.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
+using DriveSync.ExceptionHandler;
 using DriveSync.Services.IServices;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using static DriveSync.Enum;
 
 namespace DriveSync.BusinessRepository  
 {
@@ -32,7 +35,8 @@ namespace DriveSync.BusinessRepository
             bool exists = await mDriveSyncDbContext.Vehicle.AnyAsync(c => c.PlateNumber.Trim().ToLower() == plateNum && c.Deleted ==0);
             if (exists)
             {
-                return "Vehicle Already Added";
+                throw new PlatformException((int)HttpStatusCode.BadRequest, $"Vehicle with the Plate Number {request.PlateNumber} already exist!");
+
             }
 
             Vehicle vehicle = new Vehicle()
@@ -42,11 +46,10 @@ namespace DriveSync.BusinessRepository
                 Model = request.Model,
                 Category = request.Category,
                 RentalCompanyid = request.RentalCompanyid,
-                IsActive = 1,
+                IsActive = (int)Status.Active,
                 CreatedDateTime = DateTime.UtcNow,
                 UpdatedDateTime = DateTime.UtcNow,
-                Remarks = request.Remarks,
-                Deleted = 0
+                Remarks = request.Remarks
             };
             await mDriveSyncDbContext.Vehicle.AddAsync(vehicle);
             await mDriveSyncDbContext.SaveChangesAsync();
