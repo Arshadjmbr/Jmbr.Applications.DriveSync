@@ -3,7 +3,7 @@
     public class CreateDriverRequest
     {
         public string Name { get; set; }
-        public int Age { get; set; }
+        public short Age { get; set; }
         public string? StaffIdNum { get; set; }
         public string? EmailAddress { get; set; }
         public long MobileNumber { get; set; }

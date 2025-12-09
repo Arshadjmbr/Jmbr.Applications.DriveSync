@@ -4,7 +4,7 @@
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public int Age { get; set; }
+        public short Age { get; set; }
         public string? StaffIdNum { get; set; }
         public string? Email { get; set; }
         public long MobileNumber { get; set; }
@@ -23,7 +23,7 @@
         public DateTimeOffset CreatedDateTime { get; set; }
         public DateTimeOffset? UpdatedDateTime { get; set; }
         public string? Remarks { get; set; }
-        public int Deleted { get; set; } = 0;
+        public short Deleted { get; set; } = 0;
     }
 
 }

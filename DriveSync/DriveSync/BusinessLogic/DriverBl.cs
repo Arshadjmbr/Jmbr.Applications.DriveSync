@@ -25,5 +25,10 @@ namespace DriveSync.BusinessLogic
         {
             return await mDriverBr.GetDrivers();
         }
+
+        public async Task<List<GetDropdownResponse>> GetDropdowns()
+        {
+            return await mDriverBr.GetDropdowns();
+        }
     }
 }

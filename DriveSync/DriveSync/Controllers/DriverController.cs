@@ -69,5 +69,20 @@ namespace DriveSync.Controllers
             }
 
         }
+
+        [HttpGet("dropdown")]
+        public async Task<IActionResult> GetDropdowns()
+        {
+            try
+            {
+                List<GetDropdownResponse> response = await mDriverBl.GetDropdowns();
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+
+        }
     }
 }
