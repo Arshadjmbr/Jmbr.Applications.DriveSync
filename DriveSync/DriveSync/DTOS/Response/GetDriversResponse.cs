@@ -13,7 +13,7 @@
         public string LicenseType { get; set; }
         public string LicenseNumber { get; set; }
         public DateTime LicenseExpiryDate { get; set; }
-        public string EmiratesZone { get; set; }
+        public string EmirateZone { get; set; }
         public DateTimeOffset JoiningDate { get; set; }
         public DateTimeOffset? ResignationDate { get; set; }
         public DateTime? VacationDateFrom { get; set; }
