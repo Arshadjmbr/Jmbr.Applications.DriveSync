@@ -7,7 +7,7 @@
     "Category" VARCHAR(50) NOT NULL,
     "RentalCompanyId" BIGINT NOT NULL,
     "IsActive" INT NOT NULL,
-    "Status" SMALLINT NOT NULL,
+    "Status" SMALLINT,
     "CreatedDateTime" DATETIMEOFFSET NOT NULL,
     "UpdatedDateTime" DATETIMEOFFSET NOT NULL,
     "Remarks" VARCHAR(255) NULL,

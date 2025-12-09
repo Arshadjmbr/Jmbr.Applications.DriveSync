@@ -39,8 +39,7 @@ namespace DriveSync.BusinessRepository
                 IsActive = (int)Status.Active,
                 CreatedDateTime = DateTime.UtcNow,
                 UpdatedDateTime = DateTime.UtcNow,
-                Remarks = createDriversRequest.Remarks,
-                Deleted = 0
+                Remarks = createDriversRequest.Remarks
             };
             await mDriveSyncDbContext.Driver.AddAsync(driver);
 

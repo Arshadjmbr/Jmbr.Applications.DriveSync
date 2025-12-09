@@ -19,7 +19,7 @@
         public DateTime? VacationDateFrom { get; set; }
         public DateTime? VacationDateTo { get; set; }
         public short? IsActive { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
         public DateTimeOffset CreatedDateTime { get; set; }
         public DateTimeOffset? UpdatedDateTime { get; set; }
         public string? Remarks { get; set; }

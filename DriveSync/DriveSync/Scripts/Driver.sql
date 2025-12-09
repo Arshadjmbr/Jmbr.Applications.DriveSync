@@ -17,7 +17,7 @@
     "VacationDateFrom" DATE NULL,
     "VacationDateTo" DATE NULL,
     "IsActive" SMALLINT NOT NULL,
-    "Status" SMALLINT NOT NULL,
+    "Status" SMALLINT,
     "CreatedDateTime" DATETIMEOFFSET NOT NULL,
     "UpdatedDateTime" DATETIMEOFFSET NOT NULL,
     "Remarks" VARCHAR(255) NULL,
