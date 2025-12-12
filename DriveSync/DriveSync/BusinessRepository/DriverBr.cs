@@ -1,11 +1,11 @@
 ﻿using Dapper;
 using DriveSync.BusinessRepository.IBusinessRepository;
-using DriveSync.Dapper.Drivers;
-using DriveSync.DBContext;
+using DriveSync.DatabaseLayer.Dapper.Drivers;
+using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
-using DriveSync.ExceptionHandler;
+using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
 using Microsoft.Data.SqlClient;
 using System.Net;
@@ -85,13 +85,13 @@ namespace DriveSync.BusinessRepository
             return getDriversResponses;
         }
 
-        public async Task<List<GetDropdownResponse>> GetDropdowns()
+        public async Task<List<DriversDropdownResponse>> GetDropdowns()
         {
-            List<GetDropdownResponse> getDriversResponses = new List<GetDropdownResponse>();
+            List<DriversDropdownResponse> getDriversResponses = new List<DriversDropdownResponse>();
             using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
             {
                 await sqlConnection.OpenAsync();
-                var response = await sqlConnection.QueryAsync<GetDropdownResponse>(DriverResource.GetDropdownDrivers);
+                var response = await sqlConnection.QueryAsync<DriversDropdownResponse>(DriverResource.GetDropdownDrivers);
                 getDriversResponses = response.ToList();
                 await sqlConnection.CloseAsync();
             }

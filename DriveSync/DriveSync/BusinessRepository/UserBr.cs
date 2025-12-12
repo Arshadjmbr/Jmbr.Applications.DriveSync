@@ -1,13 +1,11 @@
 ﻿using Dapper;
 using DriveSync.BusinessRepository.IBusinessRepository;
-using DriveSync.Dapper.Drivers;
-using DriveSync.DBContext;
+using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
-using DriveSync.ExceptionHandler;
-using DriveSync.Generator;
-using DriveSync.Hashing;
+using DriveSync.Handlers.ExceptionHandler;
+using DriveSync.Handlers.Hashing;
 using DriveSync.Services.IServices;
 using Microsoft.Data.SqlClient;
 using System.Net;

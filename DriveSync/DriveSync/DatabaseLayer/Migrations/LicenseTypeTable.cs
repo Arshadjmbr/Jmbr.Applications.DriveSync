@@ -1,0 +1,18 @@
+﻿using FluentMigrator;
+
+namespace DriveSync.DatabaseLayer.Migrations
+{
+    [Migration(20251111130000)]
+    public class LicenseTypeTable: Migration
+    {
+        public override void Down()
+        {
+            
+        }
+        public override void Up()
+        {
+            Execute.Script(@"Scripts\LicenseType.sql");
+        }
+
+    }
+}

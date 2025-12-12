@@ -1,12 +1,12 @@
 ﻿using Azure.Core;
 using DriveSync.BusinessRepository.IBusinessRepository;
-using DriveSync.Constants;
-using DriveSync.DBContext;
+using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
-using DriveSync.ExceptionHandler;
-using DriveSync.Hashing;
+using DriveSync.Handlers.Constants;
+using DriveSync.Handlers.ExceptionHandler;
+using DriveSync.Handlers.Hashing;
 using DriveSync.Utility;
 using System.Net;
 using System.Runtime.CompilerServices;

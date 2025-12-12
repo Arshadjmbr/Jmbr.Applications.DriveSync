@@ -1,4 +1,4 @@
-﻿using DriveSync.ExceptionHandler;
+﻿using DriveSync.Handlers.ExceptionHandler;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;

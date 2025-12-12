@@ -9,7 +9,7 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<List<EmirateZoneResponse>> GetZone();
         Task<List<LicenseTypeResponse>> GetLicenseType();
         Task<List<GetDriversResponse>> GetDrivers();
-        Task<List<GetDropdownResponse>> GetDropdowns();
+        Task<List<DriversDropdownResponse>> GetDropdowns();
 
     }
 }
