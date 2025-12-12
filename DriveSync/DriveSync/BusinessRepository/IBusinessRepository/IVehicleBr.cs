@@ -8,6 +8,7 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<List<VehicleTypeResponse>> GetVehicleTypes();
         Task<string> CreateVehicle(CreateVehicleRequest createVehicleRequest);
         Task<List<GetVehicleResponse>> GetVehicles();
+        Task<List<VehicleDropdownResponse>> GetVehicleDropdowns();
 
 
     }

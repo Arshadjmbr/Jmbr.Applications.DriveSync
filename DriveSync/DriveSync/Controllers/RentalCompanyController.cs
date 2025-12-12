@@ -1,6 +1,6 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.DTOS.Request;
-using DriveSync.ExceptionHandler;
+using DriveSync.Handlers.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

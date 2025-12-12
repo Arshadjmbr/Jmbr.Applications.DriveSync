@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using DriveSync.BusinessRepository.IBusinessRepository;
-using DriveSync.Dapper.RentalCompanies;
-using DriveSync.DBContext;
+using DriveSync.DatabaseLayer.Dapper.RentalCompanies;
+using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;

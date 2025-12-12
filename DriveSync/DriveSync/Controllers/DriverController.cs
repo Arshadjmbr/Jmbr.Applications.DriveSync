@@ -1,7 +1,7 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
-using DriveSync.ExceptionHandler;
+using DriveSync.Handlers.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,7 +75,7 @@ namespace DriveSync.Controllers
         {
             try
             {
-                List<GetDropdownResponse> response = await mDriverBl.GetDropdowns();
+                List<DriversDropdownResponse> response = await mDriverBl.GetDropdowns();
                 return Ok(response);
             }
             catch (PlatformException ex)

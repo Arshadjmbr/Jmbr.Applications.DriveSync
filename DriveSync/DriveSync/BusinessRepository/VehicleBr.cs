@@ -1,11 +1,11 @@
 ﻿using Dapper;
 using DriveSync.BusinessRepository.IBusinessRepository;
-using DriveSync.Dapper.Vehicle;
-using DriveSync.DBContext;
+using DriveSync.DatabaseLayer.Dapper.Vehicle;
+using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
-using DriveSync.ExceptionHandler;
+using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +63,19 @@ namespace DriveSync.BusinessRepository
             {
                 await sqlConnection.OpenAsync();
                 var vehicleresponse = await sqlConnection.QueryAsync<GetVehicleResponse>(VehicleResource.GetVehicles);
+                responses = vehicleresponse.ToList();
+                await sqlConnection.CloseAsync();
+            }
+            return responses;
+        }
+
+        public async Task<List<VehicleDropdownResponse>> GetVehicleDropdowns()
+        {
+            List<VehicleDropdownResponse> responses = new List<VehicleDropdownResponse>();
+            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            {
+                await sqlConnection.OpenAsync();
+                var vehicleresponse = await sqlConnection.QueryAsync<VehicleDropdownResponse>(VehicleResource.GetDropdownVehicles);
                 responses = vehicleresponse.ToList();
                 await sqlConnection.CloseAsync();
             }

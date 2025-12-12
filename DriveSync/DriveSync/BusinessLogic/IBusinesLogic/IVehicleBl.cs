@@ -9,5 +9,6 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<string> CreateVehicle(CreateVehicleRequest createVehicleRequest);
 
         Task<List<GetVehicleResponse>> GetVehicles();
+        Task<List<VehicleDropdownResponse>> GetVehicleDropdowns();
     }
 }

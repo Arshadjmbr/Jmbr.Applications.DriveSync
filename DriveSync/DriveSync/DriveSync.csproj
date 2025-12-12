@@ -18,22 +18,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Dapper\Dashboard\DashboardResource.Designer.cs">
+    <Compile Update="DatabaseLayer\Dapper\Dashboard\DashboardResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DashboardResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Dapper\Drivers\DriverResource.Designer.cs">
+    <Compile Update="DatabaseLayer\Dapper\Drivers\DriverResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DriverResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Dapper\RentalCompanies\RentalCompanyResource.Designer.cs">
+    <Compile Update="DatabaseLayer\Dapper\RentalCompanies\RentalCompanyResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>RentalCompanyResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Dapper\Vehicle\VehicleResource.Designer.cs">
+    <Compile Update="DatabaseLayer\Dapper\Vehicle\VehicleResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>VehicleResource.resx</DependentUpon>
@@ -41,19 +41,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Dapper\Dashboard\DashboardResource.resx">
+    <EmbeddedResource Update="DatabaseLayer\Dapper\Dashboard\DashboardResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DashboardResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Dapper\Drivers\DriverResource.resx">
+    <EmbeddedResource Update="DatabaseLayer\Dapper\Drivers\DriverResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DriverResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Dapper\RentalCompanies\RentalCompanyResource.resx">
+    <EmbeddedResource Update="DatabaseLayer\Dapper\RentalCompanies\RentalCompanyResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RentalCompanyResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Dapper\Vehicle\VehicleResource.resx">
+    <EmbeddedResource Update="DatabaseLayer\Dapper\Vehicle\VehicleResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>VehicleResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

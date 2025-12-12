@@ -1,12 +1,12 @@
 ﻿using Dapper;
 using DriveSync.BusinessRepository.IBusinessRepository;
-using DriveSync.Constants;
-using DriveSync.Dapper.Dashboard;
-using DriveSync.DBContext;
+using DriveSync.DatabaseLayer.Dapper.Dashboard;
+using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
-using DriveSync.ExceptionHandler;
+using DriveSync.Handlers.Constants;
+using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
