@@ -10,6 +10,7 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<List<LicenseTypeResponse>> GetLicenseType();
         Task<List<GetDriversResponse>> GetDrivers();
         Task<List<DriversDropdownResponse>> GetDropdowns();
+        Task<string> EditDriver(long Id,EditDriverRequest editDriverRequest);
 
     }
 }

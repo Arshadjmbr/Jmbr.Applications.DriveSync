@@ -13,7 +13,7 @@ using static DriveSync.Enum;
 
 namespace DriveSync.BusinessRepository
 {
-    public class DriverBr(DriveSyncDbContext mDriveSyncDbContext, ISqlService mSqlService):IDriverBr
+    public class DriverBr(DriveSyncDbContext mDriveSyncDbContext, ISqlService mSqlService) : IDriverBr
     {
         public async Task<string> CreateDrivers(CreateDriverRequest createDriversRequest)
         {
@@ -96,6 +96,32 @@ namespace DriveSync.BusinessRepository
                 await sqlConnection.CloseAsync();
             }
             return getDriversResponses;
+        }
+
+        public async Task<string> EditDriver(long Id, EditDriverRequest editDriverRequest)
+        {
+            Drivers existingDriver = mDriveSyncDbContext.Driver.Where(u => u.Id == Id).FirstOrDefault();
+            if (existingDriver == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.NotFound, $"Driver with ID {Id} not found.");
+            }
+            existingDriver.Name = editDriverRequest.Name ?? existingDriver.Name;
+            existingDriver.Email = editDriverRequest.EmailAddress ?? existingDriver.Email;
+            existingDriver.Age = editDriverRequest.Age ?? existingDriver.Age;
+            existingDriver.StaffIdNum = editDriverRequest.StaffIdNum ?? existingDriver.StaffIdNum;
+            existingDriver.MobileNumber = editDriverRequest.MobileNumber ?? existingDriver.MobileNumber;
+            existingDriver.EmiratesId = editDriverRequest.EmiratesId ?? existingDriver.EmiratesId;
+            existingDriver.PassportNum = editDriverRequest.PassportNum ?? existingDriver.EmiratesId;
+            existingDriver.LicenseTypeId = editDriverRequest.LicenseTypeId ?? existingDriver.LicenseTypeId;
+            existingDriver.LicenseNumber = editDriverRequest.LicenseNumber ?? existingDriver.LicenseNumber;
+            existingDriver.LicenseExpiryDate = editDriverRequest.LicenseExpiryDate ?? existingDriver.LicenseExpiryDate;
+            existingDriver.EmiratesZoneId = editDriverRequest.EmiratesZoneId ?? existingDriver.EmiratesZoneId;
+            existingDriver.JoiningDate = editDriverRequest.JoiningDate ?? existingDriver.JoiningDate;
+            existingDriver.UpdatedDateTime = DateTime.UtcNow;
+            existingDriver.Remarks = editDriverRequest.Remarks ?? existingDriver.Remarks;
+            mDriveSyncDbContext.Driver.Update(existingDriver);
+            await mDriveSyncDbContext.SaveChangesAsync();
+            return "Successfully updated driver.";
         }
     }
 }

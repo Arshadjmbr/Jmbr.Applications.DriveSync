@@ -10,7 +10,7 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<List<LicenseTypeResponse>> GetLicenseType();
         Task<List<GetDriversResponse>> GetDrivers();
         Task<List<DriversDropdownResponse>> GetDropdowns();
-
+        Task<string> EditDriver(long Id, EditDriverRequest editDriverRequest);
 
     }
 }
