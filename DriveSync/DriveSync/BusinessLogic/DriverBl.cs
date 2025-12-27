@@ -5,7 +5,7 @@ using DriveSync.DTOS.Response;
 
 namespace DriveSync.BusinessLogic
 {
-    public class DriverBl(IDriverBr mDriverBr):IDriverBl
+    public class DriverBl(IDriverBr mDriverBr) : IDriverBl
     {
         public async Task<string> CreateDrivers(CreateDriverRequest createDriversRequest)
         {
@@ -29,6 +29,11 @@ namespace DriveSync.BusinessLogic
         public async Task<List<DriversDropdownResponse>> GetDropdowns()
         {
             return await mDriverBr.GetDropdowns();
+        }
+
+        public async Task<string> EditDriver(long Id, EditDriverRequest editDriverRequest)
+        {
+            return await mDriverBr.EditDriver(Id,editDriverRequest);
         }
     }
 }

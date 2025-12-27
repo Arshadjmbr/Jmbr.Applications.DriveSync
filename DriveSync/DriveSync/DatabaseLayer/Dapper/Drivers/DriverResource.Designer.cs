@@ -62,6 +62,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         
         /// <summary>
         ///   Looks up a localized string similar to  SELECT
+        /// d.Id,
         /// d.Name,
         /// d.Age,
         /// d.StaffIdNum,
@@ -85,7 +86,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         ///FROM Driver d
         ///JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
         ///JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
-        ///WHERE IsActive = 1 AND Deleted = 0.
+        ///WHERE IsActive = 1 AND Del [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GetDrivers {
             get {

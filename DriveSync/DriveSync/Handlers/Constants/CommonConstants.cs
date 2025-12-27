@@ -7,7 +7,10 @@
 
 
         public const short VEHICLE_ASSIGNED = 2;
-
+ 
         public const short DRIVER_ASSIGNED = 2;
+        public const short DRIVER_SICK = 3;
+        public const short DRIVER_ON_VACATION = 4;
+
     }
 }

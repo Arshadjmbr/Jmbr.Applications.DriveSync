@@ -1,4 +1,5 @@
 ﻿ SELECT
+ d.Id,
  d.Name,
  d.Age,
  d.StaffIdNum,

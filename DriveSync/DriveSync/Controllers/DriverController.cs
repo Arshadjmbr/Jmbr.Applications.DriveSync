@@ -84,5 +84,19 @@ namespace DriveSync.Controllers
             }
 
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditDriver(long id, [FromBody] EditDriverRequest editDriverRequest)
+        {
+            try
+            {
+                var response = await mDriverBl.EditDriver(id, editDriverRequest);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
     }
 }
