@@ -8,7 +8,8 @@
         public long ContactNumber { get; set; }
         public DateTimeOffset CreatedDateTime { get; set; }
         public DateTimeOffset UpdatedDateTime { get; set; }
-        public short IsActive { get; set; }
+        public int Status { get; set; }
         public string? Remarks { get; set; }
+        public int Deleted { get; set; }
     }
 }

@@ -7,5 +7,6 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
     {
         Task<string> Register(RegisterCompaniesRequest request);
         Task<List<RentalCompanyResponse>> GetRentalCompanies();
+        Task<string> UpdateCompany(long companyId, UpdateCompanyRequest updateCompanyRequest);
     }
 }
