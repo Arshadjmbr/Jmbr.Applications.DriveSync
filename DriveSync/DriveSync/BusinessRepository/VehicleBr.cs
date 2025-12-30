@@ -5,6 +5,7 @@ using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
+using DriveSync.Handlers.Constants;
 using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
 using Microsoft.Data.SqlClient;
@@ -42,11 +43,10 @@ namespace DriveSync.BusinessRepository
             Vehicle vehicle = new Vehicle()
             {
                 PlateNumber = request.PlateNumber,
-                VehicleTypeId = request.VehicleTypeId,
+                VehicleTypeId = request.VehicleCategoryId,
                 Model = request.Model,
-                Category = request.Category,
                 RentalCompanyid = request.RentalCompanyid,
-                IsActive = (int)Status.Active,
+                Status = CommonConstants.VEHICLE_AVAILABLE,
                 CreatedDateTime = DateTime.UtcNow,
                 UpdatedDateTime = DateTime.UtcNow,
                 Remarks = request.Remarks

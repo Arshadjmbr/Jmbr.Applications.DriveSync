@@ -4,6 +4,7 @@ using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
+using DriveSync.Handlers.Constants;
 using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Handlers.Hashing;
 using DriveSync.Services.IServices;
@@ -37,11 +38,12 @@ namespace DriveSync.BusinessRepository
             {
                 Name = createUserRequest.Name,
                 EmailAddress = createUserRequest.EmailAddress,
+                StaffId = createUserRequest.StaffId,
                 Password = hashedPassword,
                 Age = createUserRequest.Age ?? 0,
                 MobileNumber = createUserRequest.MobileNumber,
                 RoleId = createUserRequest.RoleId,
-                Status = (int)Status.Active,
+                Status = CommonConstants.USER_STATUS_ACTIVE,
                 CreatedDateTime = DateTime.UtcNow,
                 UpdatedDateTime = DateTime.UtcNow
             };

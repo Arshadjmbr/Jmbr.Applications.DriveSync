@@ -12,7 +12,7 @@ namespace DriveSync.DatabaseLayer.Migrations
 
         public override void Up()
         {
-            Execute.Script(@"Scripts\Vehicle.sql");
+            Execute.Script(@"DatabaseLayer\Scripts\Vehicle.sql");
         }
     }
 }

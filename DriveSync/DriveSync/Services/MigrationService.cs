@@ -15,6 +15,9 @@ namespace DriveSync.Services
                     migrationService.ListMigrations();
                     migrationService.MigrateUp();
                 }
+
+
+
                 catch
                 {
                     //log errors or ...

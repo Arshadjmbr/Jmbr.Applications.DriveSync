@@ -6,10 +6,10 @@
 "StartDateTime" DATETIMEOFFSET NOT NULL,
 "EndDateTime" DATETIMEOFFSET NULL,
 "CreatedDateTime" DATETIMEOFFSET NOT NULL,
-"UpdatedDateTime" DATETIMEOFFSET NOT NULL,
+"UpdatedDateTime" DATETIMEOFFSET NULL,
 "Comments" VARCHAR(MAX) NULL,
 "Remarks" VARCHAR(MAX) NULL,
-"Status" SMALLINT NOT NULL,
+"Status" INT NOT NULL,
 CONSTRAINT FK_Vehicle_VehicleId FOREIGN KEY ("VehicleId") REFERENCES "Vehicle"("Id"),
 CONSTRAINT FK_Driver_DriverId FOREIGN KEY ("DriverId") REFERENCES "Driver"("Id")
 )

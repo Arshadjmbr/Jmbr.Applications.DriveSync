@@ -11,7 +11,7 @@ namespace DriveSync.DatabaseLayer.Migrations
         }
         public override void Up()
         {
-            Execute.Script(@"Scripts\VehicleTypeSeeding.sql");
+            Execute.Script(@"DatabaseLayer\Scripts\VehicleTypeSeeding.sql");
         }
     }
 }

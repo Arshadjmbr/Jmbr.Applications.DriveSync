@@ -78,7 +78,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         /// d.ResignationDate,
         /// d.VacationDateFrom,
         /// d.VacationDateTo,
-        /// d.IsActive,
+        /// d.Status,
         /// d.CreatedDateTime,
         /// d.UpdatedDateTime,
         /// d.Deleted,
@@ -86,7 +86,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         ///FROM Driver d
         ///JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
         ///JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
-        ///WHERE IsActive = 1 AND Del [rest of string was truncated]&quot;;.
+        ///WHERE Status = 1 AND Deleted [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GetDrivers {
             get {

@@ -12,7 +12,7 @@ namespace DriveSync.DatabaseLayer.Migrations
 
         public override void Up()
         {
-            Execute.Script(@"Scripts\Driver.sql");
+            Execute.Script(@"DatabaseLayer\Scripts\Driver.sql");
         }
     }
 }
