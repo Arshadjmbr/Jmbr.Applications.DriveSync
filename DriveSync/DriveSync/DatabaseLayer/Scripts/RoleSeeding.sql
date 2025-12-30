@@ -2,5 +2,5 @@
 VALUES
 ('Admin',null),
 ('Manager', null),
-('Drivers', null)
+('Driver', null)
 

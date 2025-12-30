@@ -11,7 +11,7 @@ namespace DriveSync.DatabaseLayer.Migrations
         }
         public override void Up()
         {
-            Execute.Script(@"Scripts\LicenseType.sql");
+            Execute.Script(@"DatabaseLayer\Scripts\LicenseType.sql");
         }
 
     }

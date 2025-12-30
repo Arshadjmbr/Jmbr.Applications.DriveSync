@@ -4,9 +4,9 @@
 	"CompanyName" VARCHAR(255) NOT NULL,
 	"ContactNumber" BIGINT NOT NULL,
 	"Address" VARCHAR(500) NULL,
-	"IsActive" SMALLINT NOT NULL,
+	"Status" INT NOT NULL,
 	"CreatedDateTime" DATETIMEOFFSET NOT NULL,
 	"UpdatedDateTime" DATETIMEOFFSET NOT NULL,
 	"Remarks" VARCHAR(255) NULL,
-	"Deleted" SMALLINT NOT NULL DEFAULT 0
+	"Deleted" INT NOT NULL DEFAULT 0
 );

@@ -2,10 +2,12 @@
 (
 "Id" BIGINT IDENTITY(1,1) PRIMARY KEY,
 "Name" VARCHAR(255) NOT NULL,
+"StaffId" VARCHAR(50) NOT NULL,
 "EmailAddress" VARCHAR(255) NOT NULL,
 "Password" VARCHAR(255) NOT NULL,
 "Age" INT,
 "MobileNumber" BIGINT NOT NULL,
+"AlternateMobileNumber" BIGINT,
 "Otp" VARCHAR(10),
 "OtpExpiry" DATETIMEOFFSET,
 "RoleId" INT NOT NULL,

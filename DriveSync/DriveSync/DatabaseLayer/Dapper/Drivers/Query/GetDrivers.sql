@@ -15,7 +15,7 @@
  d.ResignationDate,
  d.VacationDateFrom,
  d.VacationDateTo,
- d.IsActive,
+ d.Status,
  d.CreatedDateTime,
  d.UpdatedDateTime,
  d.Deleted,
@@ -23,4 +23,4 @@
 FROM Driver d
 JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
 JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
-WHERE IsActive = 1 AND Deleted = 0
+WHERE Status = 1 AND Deleted = 0

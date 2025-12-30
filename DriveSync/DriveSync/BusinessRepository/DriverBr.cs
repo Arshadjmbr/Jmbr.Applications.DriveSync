@@ -5,6 +5,7 @@ using DriveSync.DatabaseLayer.DBContext;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
+using DriveSync.Handlers.Constants;
 using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
 using Microsoft.Data.SqlClient;
@@ -27,8 +28,9 @@ namespace DriveSync.BusinessRepository
                 Name = createDriversRequest.Name,
                 Email = createDriversRequest.EmailAddress,
                 Age = createDriversRequest.Age,
-                StaffIdNum = createDriversRequest.StaffIdNum ?? "",
+                StaffIdNum = createDriversRequest.StaffIdNum,
                 MobileNumber = createDriversRequest.MobileNumber,
+                AlternateMobileNumber = createDriversRequest.AlternateMobileNumber,
                 EmiratesId = createDriversRequest.EmiratesId,
                 PassportNum = createDriversRequest.PassportNum,
                 LicenseTypeId = createDriversRequest.LicenseTypeId,
@@ -36,7 +38,7 @@ namespace DriveSync.BusinessRepository
                 LicenseExpiryDate = createDriversRequest.LicenseExpiryDate,
                 EmiratesZoneId = createDriversRequest.EmiratesZoneId,
                 JoiningDate = createDriversRequest.JoiningDate,
-                IsActive = (int)Status.Active,
+                Status = CommonConstants.DRIVER_AVAILABLE,
                 CreatedDateTime = DateTime.UtcNow,
                 UpdatedDateTime = DateTime.UtcNow,
                 Remarks = createDriversRequest.Remarks
