@@ -3,8 +3,9 @@
 	"CompanyName",
 	"ContactNumber",
 	"Address",
-	"IsActive",
+	"Status",
 	"CreatedDateTime",
 	"UpdatedDateTime",
-	"Remarks"
+	"Remarks",
+	"Deleted"
 FROM RentalCompanies

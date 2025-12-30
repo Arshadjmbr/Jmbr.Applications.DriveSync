@@ -66,10 +66,11 @@ namespace DriveSync.DatabaseLayer.Dapper.RentalCompanies {
         ///	&quot;CompanyName&quot;,
         ///	&quot;ContactNumber&quot;,
         ///	&quot;Address&quot;,
-        ///	&quot;IsActive&quot;,
+        ///	&quot;Status&quot;,
         ///	&quot;CreatedDateTime&quot;,
         ///	&quot;UpdatedDateTime&quot;,
-        ///	&quot;Remarks&quot;
+        ///	&quot;Remarks&quot;,
+        ///	&quot;Deleted&quot;
         ///FROM RentalCompanies.
         /// </summary>
         public static string GetRentalCompanies {

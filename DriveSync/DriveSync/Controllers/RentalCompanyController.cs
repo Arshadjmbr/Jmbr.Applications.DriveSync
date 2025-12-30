@@ -38,5 +38,20 @@ namespace DriveSync.Controllers
                 return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
         }
+
+        [HttpPut("{id}")]
+
+        public async Task<IActionResult> UpdateCompany(long id, [FromBody] UpdateCompanyRequest updateCompanyRequest)
+        {
+            try
+            {
+                var response = await mRentalCompanyBl.UpdateCompany(id, updateCompanyRequest);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
     }
 }

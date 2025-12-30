@@ -16,5 +16,10 @@ namespace DriveSync.BusinessLogic
         {
             return await mRentalCompanyBr.GetRentalCompanies();
         }
+
+        public async Task<string> UpdateCompany(long id, UpdateCompanyRequest updateCompanyRequest)
+        {
+            return await mRentalCompanyBr.UpdateCompany(id, updateCompanyRequest);
+        }
     }
 }
