@@ -45,8 +45,9 @@ namespace DriveSync.BusinessRepository
                 PlateNumber = request.PlateNumber,
                 VehicleTypeId = request.VehicleCategoryId,
                 Model = request.Model,
-                RentalCompanyid = request.RentalCompanyid,
+                RentalCompanyId = request.RentalCompanyid,
                 Status = CommonConstants.VEHICLE_AVAILABLE,
+                MulkiyaExpiryDate = request.MulkiyaExpiryDate,  
                 CreatedDateTime = DateTime.UtcNow,
                 UpdatedDateTime = DateTime.UtcNow,
                 Remarks = request.Remarks
@@ -80,6 +81,30 @@ namespace DriveSync.BusinessRepository
                 await sqlConnection.CloseAsync();
             }
             return responses;
+        }
+        public async Task<string> EditVehicle(long id, EditVehicleRequest request)
+        {
+            string plateNum = request.PlateNumber?.Trim().ToLowerInvariant();
+            bool exists = await mDriveSyncDbContext.Vehicle.AnyAsync(c => c.PlateNumber.Trim().ToLower() == plateNum && c.Id != request.Id && c.Deleted == 0);
+            if (exists)
+            {
+                throw new PlatformException((int)HttpStatusCode.BadRequest, $"Vehicle with the Plate Number {request.PlateNumber} already exist!");
+            }
+            Vehicle vehicle = await mDriveSyncDbContext.Vehicle.FirstOrDefaultAsync(c => c.Id == request.Id && c.Deleted == 0);
+            if (vehicle == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.NotFound, "Vehicle not found");
+            }
+            vehicle.PlateNumber = request.PlateNumber ?? vehicle.PlateNumber;
+            vehicle.VehicleTypeId = request.VehicleTypeId ?? vehicle.VehicleTypeId;
+            vehicle.Model = request.Model ?? vehicle.Model;
+            vehicle.RentalCompanyId = request.RentalCompanyId ?? vehicle.RentalCompanyId;
+            vehicle.MulkiyaExpiryDate = request.MulkiyaExpiryDate ?? vehicle.MulkiyaExpiryDate;
+            vehicle.Remarks = request.Remarks ?? vehicle.Remarks;
+            vehicle.UpdatedDateTime = DateTime.UtcNow;
+            mDriveSyncDbContext.Vehicle.Update(vehicle);
+            await mDriveSyncDbContext.SaveChangesAsync();
+            return "Vehicle Updated Successfully";
         }
     }
 }
