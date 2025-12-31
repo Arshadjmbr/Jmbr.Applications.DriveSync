@@ -26,5 +26,9 @@ namespace DriveSync.BusinessLogic
         {
             return await mVehicleBr.GetVehicleDropdowns();
         }
+        public async Task<string> EditVehicle(long id, EditVehicleRequest editVehicleRequest)
+        {
+            return await mVehicleBr.EditVehicle(id, editVehicleRequest);
+        }
     }
 }

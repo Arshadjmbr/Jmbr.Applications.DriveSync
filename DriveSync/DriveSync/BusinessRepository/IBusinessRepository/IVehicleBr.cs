@@ -9,6 +9,7 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<string> CreateVehicle(CreateVehicleRequest createVehicleRequest);
         Task<List<GetVehicleResponse>> GetVehicles();
         Task<List<VehicleDropdownResponse>> GetVehicleDropdowns();
+        Task<string> EditVehicle(long id, EditVehicleRequest editVehicleRequest);
 
 
     }

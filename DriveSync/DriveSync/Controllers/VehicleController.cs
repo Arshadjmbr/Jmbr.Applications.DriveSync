@@ -35,7 +35,7 @@ namespace DriveSync.Controllers
             }
             catch (PlatformException ex)
             {
-                return StatusCode(ex.StatusCode, new { error = ex.Message});
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
 
         }
@@ -70,6 +70,20 @@ namespace DriveSync.Controllers
                 return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
 
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditVehicle(long id, [FromBody] EditVehicleRequest editVehicleRequest)
+        {
+            try
+            {
+                var response = await mVehicleBl.EditVehicle(id, editVehicleRequest);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
         }
     }
 }
