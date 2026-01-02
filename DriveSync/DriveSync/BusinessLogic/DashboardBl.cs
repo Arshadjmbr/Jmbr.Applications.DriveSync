@@ -18,5 +18,10 @@ namespace DriveSync.BusinessLogic
         {
             return await mDashboardBr.GetAllAssignments(request, searchText);
         }
+
+        public async Task<string> UpdateAssignment(long id, UpdateAssignment request)
+        {
+            return await mDashboardBr.UpdateAssignment(id, request);
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
     {
         Task<string> AddAssignments(AssignmentRequest request);
         Task<PaginatedResponse<AssignmentsResponse>> GetAllAssignments([FromQuery] AssignmentPaginationRequest request, string? searchText);
+        Task<string> UpdateAssignment(long id, UpdateAssignment request);
     }
 }
