@@ -14,5 +14,6 @@ namespace DriveSync.DatabaseLayer.DBContext
         public DbSet<RentalCompanies> RentalCompanies { get; set; }
         public DbSet<Vehicle> Vehicle { get; set; }
         public DbSet<Assignments> Assignments { get; set; }
+        public DbSet<Fines> Fines { get; set; }
     }
 }
