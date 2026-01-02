@@ -1,6 +1,7 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
+using DriveSync.Handlers.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,25 +11,19 @@ namespace DriveSync.Controllers
     [ApiController]
     public class DashboardController(IDashboardBl mDashboardBl) : ControllerBase
     {
-        //[HttpGet("list")]
-        //public async Task<IActionResult> GetDashboardList()
-        //{
-        //    try
-        //    {
-        //        var response = await mDashboardBl.GetDashboardList();
-        //        return Ok(response);
-        //    }
-        //    catch (PlatformException ex)
-        //    {
-        //        return StatusCode(ex.StatusCode, new { error = ex.Message });
-        //    }
-        //}
 
         [HttpPost("assignments")]
         public async Task<IActionResult> AddAssignemnts(AssignmentRequest assignmentRequest)
-        { 
-            string response = await mDashboardBl.AddAssignments(assignmentRequest);
-            return Ok(response);
+        {
+            try
+            {
+                string response = await mDashboardBl.AddAssignments(assignmentRequest);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
         }
 
         [HttpGet("all-assignments")]
@@ -41,6 +36,20 @@ namespace DriveSync.Controllers
                 return NotFound();
             }
             return Ok(response);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAssignmentStatus(long id, [FromBody] UpdateAssignment request)
+        {
+            try
+            {
+                string response = await mDashboardBl.UpdateAssignment(id, request);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
         }
     }
 }

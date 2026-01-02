@@ -95,5 +95,60 @@ namespace DriveSync.BusinessRepository
 
             return paginatedResponse;
         }
+
+        public async Task<string> UpdateAssignment(long id, UpdateAssignment request)
+        {
+            Assignments assignment = await mDriveSyncDbContext.Assignments.FindAsync(id);
+            if (assignment == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.NotFound, $"Assignment with Id {id} not found.");
+            }
+            var vehicle = await mDriveSyncDbContext.Vehicle.FindAsync(assignment.VehicleId);
+            var driver = await mDriveSyncDbContext.Driver.FindAsync(assignment.DriverId);
+            if (vehicle == null || driver == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.Conflict,
+                    "Associated Vehicle or Driver not found for the assignment.");
+            }
+            using var transaction = await mDriveSyncDbContext.Database.BeginTransactionAsync();
+            try
+            {
+                if (request.EndDateTime.HasValue && (request.EndDateTime > assignment.StartDateTime))
+                {
+                    assignment.EndDateTime = request.EndDateTime;
+                    assignment.UpdatedDateTime = DateTime.UtcNow;
+                    assignment.Status = CommonConstants.ASSIGNMENT_RETURNED;
+                    vehicle.Status = CommonConstants.VEHICLE_AVAILABLE;
+                    driver.Status = CommonConstants.DRIVER_AVAILABLE;
+                }
+                else
+                {
+                    if (request.EndDateTime.HasValue)
+                    {
+                        throw new PlatformException((int)HttpStatusCode.BadRequest,
+                            "EndDateTime must be greater than StartDateTime.");
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(request.Remarks))
+                {
+                    assignment.Remarks = request.Remarks;
+                    assignment.UpdatedDateTime = DateTime.UtcNow;
+                }
+                if (!string.IsNullOrWhiteSpace(request.Comments))
+                {
+                    assignment.Comments = request.Comments;
+                    assignment.UpdatedDateTime = DateTime.UtcNow;
+                }
+                await mDriveSyncDbContext.SaveChangesAsync();
+                await transaction.CommitAsync();
+                return "Assignment Updated Successfully";
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+            
     }
 }
