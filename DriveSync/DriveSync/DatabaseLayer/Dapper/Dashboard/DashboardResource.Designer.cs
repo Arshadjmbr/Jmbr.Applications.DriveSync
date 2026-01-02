@@ -63,6 +63,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Dashboard {
         /// <summary>
         ///   Looks up a localized string similar to SELECT 
         ///    COUNT(*) OVER() AS TotalRecords,
+        ///    a.Id,
         ///    d.Name,
         ///    d.StaffIdNum,
         ///    v.PlateNumber AS VehicleNumber,
@@ -83,7 +84,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Dashboard {
         ///    AND v.Deleted = 0
         ///    AND (
         ///        @searchText IS NULL OR
-        ///        d.Name LIKE &apos;%&apos; + @searchText + &apos;%&apos;  [rest of string was truncated]&quot;;.
+        ///        d.Name LIKE &apos;%&apos; + @search [rest of string was truncated]&quot;;.
         /// </summary>
         public static string getAllAssignments {
             get {

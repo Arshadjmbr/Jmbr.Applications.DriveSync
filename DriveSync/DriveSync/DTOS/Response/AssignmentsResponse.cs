@@ -3,6 +3,7 @@
     public class AssignmentsResponse
     {
         public int TotalRecords { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string? StaffIdNum { get; set; }
         public long MobileNumber { get; set; }
@@ -12,7 +13,7 @@
         public DateTimeOffset? JoiningDate { get; set; }
         public DateTimeOffset? StartDateTime { get; set; }
         public DateTimeOffset? EndDateTime { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
         public string? Remarks { get; set; }
 
     }
