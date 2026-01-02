@@ -86,7 +86,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         ///FROM Driver d
         ///JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
         ///JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
-        ///WHERE Status = 1 AND Deleted [rest of string was truncated]&quot;;.
+        ///WHERE Deleted = 0.
         /// </summary>
         public static string GetDrivers {
             get {
@@ -99,7 +99,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         ///Id,
         ///Name
         ///FROM Driver
-        ///WHERE IsActive = 1 AND Deleted = 0 AND Status IS NULL
+        ///WHERE Status = 1 AND Deleted = 0 
         ///.
         /// </summary>
         public static string GetDropdownDrivers {

@@ -11,4 +11,4 @@ v.Remarks
 FROM Vehicle v
 JOIN VehicleType vt ON v.VehicleTypeId = vt.Id
 JOIN RentalCompanies rc ON v.RentalCompanyId = rc.Id 
-WHERE v.Status = 1 AND v.Deleted =0
+WHERE v.Deleted =0

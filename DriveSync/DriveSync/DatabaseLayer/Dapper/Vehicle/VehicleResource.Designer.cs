@@ -65,7 +65,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Vehicle {
         ///Id,
         ///PlateNumber
         ///FROM Vehicle 
-        ///WHERE IsActive = 1 AND Deleted =0 AND Status IS NULL.
+        ///WHERE Status = 1 AND Deleted =0 AND MulkiyaExpiryDate &gt;= GETDATE().
         /// </summary>
         public static string GetDropdownVehicles {
             get {
@@ -87,7 +87,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Vehicle {
         ///FROM Vehicle v
         ///JOIN VehicleType vt ON v.VehicleTypeId = vt.Id
         ///JOIN RentalCompanies rc ON v.RentalCompanyId = rc.Id 
-        ///WHERE v.Status = 1 AND v.Deleted =0.
+        ///WHERE v.Deleted =0.
         /// </summary>
         public static string GetVehicles {
             get {

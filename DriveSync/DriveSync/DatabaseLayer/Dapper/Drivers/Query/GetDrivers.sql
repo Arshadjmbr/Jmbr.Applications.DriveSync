@@ -23,4 +23,4 @@
 FROM Driver d
 JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
 JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
-WHERE Status = 1 AND Deleted = 0
+WHERE Deleted = 0

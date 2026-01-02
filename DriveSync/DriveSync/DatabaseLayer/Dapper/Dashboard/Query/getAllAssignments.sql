@@ -1,5 +1,6 @@
 ﻿SELECT 
     COUNT(*) OVER() AS TotalRecords,
+    a.Id,
     d.Name,
     d.StaffIdNum,
     v.PlateNumber AS VehicleNumber,
