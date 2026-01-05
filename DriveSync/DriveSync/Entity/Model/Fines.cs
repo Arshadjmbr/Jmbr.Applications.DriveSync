@@ -14,6 +14,6 @@
         public DateTimeOffset CreatedDateTime { get; set; }
         public DateTimeOffset? UpdatedDateTime { get; set; }
         public int Paid { get; set; } 
-        public DateTime PaidDate { get; set; }
+        public DateOnly? PaidDate { get; set; }
     }
 }

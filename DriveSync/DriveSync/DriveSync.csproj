@@ -28,6 +28,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DriverResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="DatabaseLayer\Dapper\Fines\FineResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FineResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="DatabaseLayer\Dapper\RentalCompanies\RentalCompanyResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -48,6 +53,10 @@
     <EmbeddedResource Update="DatabaseLayer\Dapper\Drivers\DriverResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DriverResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DatabaseLayer\Dapper\Fines\FineResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FineResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="DatabaseLayer\Dapper\RentalCompanies\RentalCompanyResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
