@@ -37,6 +37,8 @@ builder.Services.AddTransient<IDriverBr, DriverBr>();
 builder.Services.AddTransient<IDriverBl, DriverBl>();
 builder.Services.AddTransient<IDashboardBl, DashboardBl>();
 builder.Services.AddTransient<IDashboardBr, DashboardBr>();
+builder.Services.AddTransient<IFinesBl, FinesBl>();
+builder.Services.AddTransient<IFinesBr, FinesBr>();
 
 builder.Services.AddCors(options =>
 {
