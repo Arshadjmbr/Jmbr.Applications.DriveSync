@@ -39,6 +39,8 @@ builder.Services.AddTransient<IDashboardBl, DashboardBl>();
 builder.Services.AddTransient<IDashboardBr, DashboardBr>();
 builder.Services.AddTransient<IFinesBl, FinesBl>();
 builder.Services.AddTransient<IFinesBr, FinesBr>();
+builder.Services.AddTransient<IReportBl, ReportBl>();
+builder.Services.AddTransient<IReportBr, ReportBr>();
 
 builder.Services.AddCors(options =>
 {
