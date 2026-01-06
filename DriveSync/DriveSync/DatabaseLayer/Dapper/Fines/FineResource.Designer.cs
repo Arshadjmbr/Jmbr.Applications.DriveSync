@@ -61,6 +61,21 @@ namespace DriveSync.DatabaseLayer.Dapper.Fines {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to namespace DriveSync.DatabaseLayer.Dapper.Fines.Query
+        ///{
+        ///    public class FineReport
+        ///    {
+        ///    }
+        ///}
+        ///.
+        /// </summary>
+        public static string FineReport {
+            get {
+                return ResourceManager.GetString("FineReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT 
         ///f.Id,
         ///f.FineNumber,

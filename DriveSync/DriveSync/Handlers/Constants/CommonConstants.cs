@@ -25,5 +25,12 @@
         public const int RENTAL_COMPANY_ACTIVE = 1;
         public const int RENTAL_COMPANY_INACTIVE = 2;
 
+
+        public const string EXCEL_CONTENT_TYPE = "application/.xlsx";
+        public const string EXCEL_FINE_FILE_NAME = "Fine.xlsx";
+        public const string PDF_CONTENT_TYPE = "application/pdf";
+        public const string PDF_FINE_FILE_NAME = "Fine.pdf";
+        public const string INTERVAL_OFFSET = "$offset minutes";
+
     }
 }
