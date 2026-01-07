@@ -19,5 +19,19 @@ namespace DriveSync.BusinessLogic
         {
             return await mReportBr.GetFineReportPdf(data);
         }
+
+
+        public async Task<List<VehicleReportResponse>> GetVehicleReportData(VehicleReportRequest vehicleReportRequest)
+        {
+            return await mReportBr.GetVehicleReportData(vehicleReportRequest);
+        }
+        public async Task<MemoryStream> GetVehicleReport(List<VehicleReportResponse> data)
+        {
+            return await mReportBr.GetVehicleReport(data);
+        }
+        public async Task<Byte[]> GetVehicleReportPdf(List<VehicleReportResponse> data)
+        {
+            return await mReportBr.GetVehicleReportPdf(data);
+        }
     }
 }

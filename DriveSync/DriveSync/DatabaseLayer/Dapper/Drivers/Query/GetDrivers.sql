@@ -5,6 +5,7 @@
  d.StaffIdNum,
  d.Email,
  d.MobileNumber,
+ d.AlternateMobileNumber,
  d.EmiratesId,
  d.PassportNum,
  lt.Type AS "LicenseType",

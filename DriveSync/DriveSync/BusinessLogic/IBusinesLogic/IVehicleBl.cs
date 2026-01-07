@@ -12,5 +12,6 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<List<VehicleDropdownResponse>> GetVehicleDropdowns();
 
         Task<string> EditVehicle(long id, EditVehicleRequest editVehicleRequest);
+
     }
 }
