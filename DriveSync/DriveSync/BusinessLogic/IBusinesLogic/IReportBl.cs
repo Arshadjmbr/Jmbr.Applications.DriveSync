@@ -12,5 +12,9 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<List<VehicleReportResponse>> GetVehicleReportData(VehicleReportRequest vehicleReportRequest);
         Task<Byte[]> GetVehicleReportPdf(List<VehicleReportResponse> data);
         Task<MemoryStream> GetVehicleReport(List<VehicleReportResponse> data);
+
+        Task<List<GetDriversResponse>> GetDriverReportData(DriverReportRequest driverReportRequest);
+        Task<Byte[]> GetDriverReportPdf(List<GetDriversResponse> data);
+        Task<MemoryStream> GetDriverReport(List<GetDriversResponse> data);
     }
 }

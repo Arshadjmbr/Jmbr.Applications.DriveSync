@@ -35,5 +35,8 @@
         public const string EXCEL_VEHICLE_FILE_NAME = "Vehicle_Report.xlsx";
         public const string PDF_VEHICLE_FILE_NAME = "Vehicle_Report.pdf";
 
+        public const string EXCEL_DRIVER_FILE_NAME = "Driver_Report.xlsx";
+        public const string PDF_DRIVER_FILE_NAME = "Driver_Report.pdf";
+
     }
 }
