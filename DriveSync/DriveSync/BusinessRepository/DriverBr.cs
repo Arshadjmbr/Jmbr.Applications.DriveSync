@@ -112,6 +112,7 @@ namespace DriveSync.BusinessRepository
             existingDriver.Age = editDriverRequest.Age ?? existingDriver.Age;
             existingDriver.StaffIdNum = editDriverRequest.StaffIdNum ?? existingDriver.StaffIdNum;
             existingDriver.MobileNumber = editDriverRequest.MobileNumber ?? existingDriver.MobileNumber;
+            existingDriver.AlternateMobileNumber = editDriverRequest.AlternateMobileNumber ?? existingDriver.AlternateMobileNumber;
             existingDriver.EmiratesId = editDriverRequest.EmiratesId ?? existingDriver.EmiratesId;
             existingDriver.PassportNum = editDriverRequest.PassportNum ?? existingDriver.EmiratesId;
             existingDriver.LicenseTypeId = editDriverRequest.LicenseTypeId ?? existingDriver.LicenseTypeId;

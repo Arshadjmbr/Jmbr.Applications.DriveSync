@@ -8,7 +8,7 @@
         public string? StaffIdNum { get; set; }
         public string? Email { get; set; }
         public long MobileNumber { get; set; }
-        //public long? AlternateMobileNumber { get; set; }
+        public long? AlternateMobileNumber { get; set; }
         public string? EmiratesId { get; set; }
         public string? PassportNum { get; set; }
         public string LicenseType { get; set; }

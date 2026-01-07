@@ -27,10 +27,13 @@
 
 
         public const string EXCEL_CONTENT_TYPE = "application/.xlsx";
-        public const string EXCEL_FINE_FILE_NAME = "Fine.xlsx";
+        public const string EXCEL_FINE_FILE_NAME = "Fine_Report.xlsx";
         public const string PDF_CONTENT_TYPE = "application/pdf";
-        public const string PDF_FINE_FILE_NAME = "Fine.pdf";
+        public const string PDF_FINE_FILE_NAME = "Fine_Report.pdf";
         public const string INTERVAL_OFFSET = "$offset minutes";
+
+        public const string EXCEL_VEHICLE_FILE_NAME = "Vehicle_Report.xlsx";
+        public const string PDF_VEHICLE_FILE_NAME = "Vehicle_Report.pdf";
 
     }
 }

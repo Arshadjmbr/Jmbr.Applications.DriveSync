@@ -9,5 +9,9 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<Byte[]> GetFineReportPdf(List<FineReportResponse> data);
         Task<MemoryStream> GetFineReport(List<FineReportResponse> data);
 
+        Task<List<VehicleReportResponse>> GetVehicleReportData(VehicleReportRequest vehicleReportRequest);
+        Task<Byte[]> GetVehicleReportPdf(List<VehicleReportResponse> data);
+        Task<MemoryStream> GetVehicleReport(List<VehicleReportResponse> data);
+
     }
 }

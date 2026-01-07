@@ -68,6 +68,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         /// d.StaffIdNum,
         /// d.Email,
         /// d.MobileNumber,
+        /// d.AlternateMobileNumber,
         /// d.EmiratesId,
         /// d.PassportNum,
         /// lt.Type AS &quot;LicenseType&quot;,
@@ -86,7 +87,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         ///FROM Driver d
         ///JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
         ///JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
-        ///WHERE Deleted = 0.
+        ///W [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GetDrivers {
             get {

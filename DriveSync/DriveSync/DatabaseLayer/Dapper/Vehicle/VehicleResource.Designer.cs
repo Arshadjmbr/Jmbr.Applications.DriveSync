@@ -103,5 +103,34 @@ namespace DriveSync.DatabaseLayer.Dapper.Vehicle {
                 return ResourceManager.GetString("GetVehicleTypes", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT 
+        ///    v.PlateNumber,
+        ///    d.Name,
+        ///    d.StaffIdNum,
+        ///    d.LicenseNumber,
+        ///    a.StartDateTime,
+        ///    a.EndDateTime
+        ///FROM 
+        ///     Assignments a 
+        ///JOIN Vehicle v ON a.VehicleId = v.Id
+        ///JOIN Driver d ON a.DriverId = d.Id
+        ///WHERE 
+        ///    v.Deleted = 0
+        ///    AND (
+        ///        @searchText IS NULL OR
+        ///        v.PlateNumber LIKE &apos;%&apos; + @searchText + &apos;%&apos; OR
+        ///        d.Name LIKE &apos;%&apos; + @searchText + &apos;%&apos;
+        ///    )
+        ///    AND (
+        ///        @fromDate IS NULL OR @toDate IS NULL 
+        ///        OR a.CreatedDateTime BETWEEN @fromDate AND  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string VehicleReport {
+            get {
+                return ResourceManager.GetString("VehicleReport", resourceCulture);
+            }
+        }
     }
 }
