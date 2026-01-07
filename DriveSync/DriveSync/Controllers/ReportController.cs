@@ -50,5 +50,26 @@ namespace DriveSync.Controllers
                 return File(response.ToArray(), contentType, fileName);
             }
         }
+
+
+        [HttpPost("driver-report")]
+        public async Task<IActionResult> GettDriverReport(DriverReportRequest driverReportRequest)
+        {
+            var data = await mReportBl.GetDriverReportData(driverReportRequest);
+            if (driverReportRequest.ExportFormat.ToLower() == "pdf")
+            {
+                byte[] pdfBytes = await mReportBl.GetDriverReportPdf(data);
+                string contentType = CommonConstants.PDF_CONTENT_TYPE;
+                string fileName = CommonConstants.PDF_DRIVER_FILE_NAME;
+                return File(pdfBytes, contentType, fileName);
+            }
+            else
+            {
+                using MemoryStream response = await mReportBl.GetDriverReport(data);
+                string contentType = CommonConstants.EXCEL_CONTENT_TYPE;
+                string fileName = CommonConstants.EXCEL_DRIVER_FILE_NAME;
+                return File(response.ToArray(), contentType, fileName);
+            }
+        }
     }
 }

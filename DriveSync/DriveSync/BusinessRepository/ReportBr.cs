@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Dapper;
 using DriveSync.BusinessRepository.IBusinessRepository;
+using DriveSync.DatabaseLayer.Dapper.Drivers;
 using DriveSync.DatabaseLayer.Dapper.Fines;
 using DriveSync.DatabaseLayer.Dapper.Vehicle;
 using DriveSync.DatabaseLayer.DBContext;
@@ -417,8 +418,234 @@ namespace DriveSync.BusinessRepository
                 });
             }).GeneratePdf();
         }
+
+
+        public async Task<List<GetDriversResponse>> GetDriverReportData(DriverReportRequest request)
+        {
+            string intervaloffset = CommonConstants.INTERVAL_OFFSET.Replace("$offset", $"{request.Offset}");
+            List<GetDriversResponse> response;
+            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            {
+                await sqlConnection.OpenAsync();
+                response = (await
+                    sqlConnection.QueryAsync<GetDriversResponse>(DriverResource.DriverReport,
+                    new
+                    {
+                        status = request.Status,
+                        fromDate = request.FromDate,
+                        toDate = request.ToDate,
+                        offset = intervaloffset,
+                        searchText = request.searchText
+                    })).ToList();
+                await sqlConnection.CloseAsync();
+            }
+            return response;
+        }
+
+        public async Task<MemoryStream> GetDriverReport(List<GetDriversResponse> data)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var excelStream = new MemoryStream();
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Driver Report");
+                int startRow = 1;
+
+                worksheet.Cells[startRow, 1].Value = "Report - Driver Report";
+                worksheet.Cells[startRow, 1, startRow, 11].Merge = true;
+                worksheet.Cells[startRow, 1, startRow, 11].Style.Font.Size = 14;
+                worksheet.Cells[startRow, 1, startRow, 11].Style.Font.Bold = true;
+                worksheet.Cells[startRow, 1, startRow, 11].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheet.Cells[startRow, 1, startRow, 11].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkBlue);
+                worksheet.Cells[startRow, 1].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                worksheet.Cells[startRow, 1, startRow, 11].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                startRow++;
+
+                worksheet.Cells[startRow, 1].Value = "S.No";
+                worksheet.Cells[startRow, 2].Value = "StaffId";
+                worksheet.Cells[startRow, 3].Value = "Name";
+                worksheet.Cells[startRow, 4].Value = "EmailAddress";
+                worksheet.Cells[startRow, 5].Value = "MobileNumber";
+                worksheet.Cells[startRow, 6].Value = "EmiratesId";
+                worksheet.Cells[startRow, 7].Value = "LicenseType";
+                worksheet.Cells[startRow, 8].Value = "LicenseNumber";
+                worksheet.Cells[startRow, 9].Value = "LicenseExpiryDate";
+                worksheet.Cells[startRow, 10].Value = "JoiningDate";
+                worksheet.Cells[startRow, 11].Value = "Status";
+
+
+                var headerRange = worksheet.Cells[startRow, 1, startRow, 11];
+                headerRange.Style.Font.Bold = true;
+                headerRange.Style.Font.Size = 11;
+                headerRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                headerRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                headerRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                headerRange.Style.Border.BorderAround(ExcelBorderStyle.Thick);
+
+                int row = startRow + 1;
+                int serialNo = 1;
+
+                foreach (var item in data)
+                {
+                    worksheet.Cells[row, 1].Value = serialNo;
+                    worksheet.Cells[row, 2].Value = item.StaffIdNum;
+                    worksheet.Cells[row, 3].Value = item.Name;
+                    worksheet.Cells[row, 4].Value = item.Email;
+                    worksheet.Cells[row, 5].Value = item.MobileNumber;
+                    worksheet.Cells[row, 6].Value = item.EmiratesId;
+                    worksheet.Cells[row, 7].Value = item.LicenseType;
+                    worksheet.Cells[row, 8].Value = item.LicenseNumber;
+                    worksheet.Cells[row, 9].Value = item.LicenseExpiryDate.ToString("dd: MM : yyyy") ?? "-";
+                    worksheet.Cells[row, 10].Value = item.JoiningDate.ToString("dd: MM : yyyy") ?? "-";
+                    worksheet.Cells[row, 11].Value = item.Status switch
+                    {
+                        1 => "Available",
+                        2 => "ASSIGNED",
+                        3 => "SICK",
+                        4 => "Vacation",
+                        5 => "InActive"
+                    };
+                    var currentRowRange = worksheet.Cells[row, 1, row, 11];
+                    currentRowRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    currentRowRange.Style.Font.Size = 10;
+                    currentRowRange.Style.ShrinkToFit = true;
+
+                    serialNo++;
+                    row++;
+                }
+
+                var fullDataRange = worksheet.Cells[worksheet.Dimension.Address];
+
+                fullDataRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                fullDataRange.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                fullDataRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                fullDataRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                fullDataRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                fullDataRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                worksheet.Cells.AutoFitColumns();
+                worksheet.Column(3).Width += 10;
+                worksheet.Column(4).Width += 10;
+                worksheet.Column(5).Width += 10;
+                worksheet.Column(6).Width += 10;
+                worksheet.Column(8).Width += 10;
+                worksheet.Column(9).Width += 10;
+                worksheet.Column(10).Width += 10;
+                package.SaveAs(excelStream);
+            }
+            excelStream.Position = 0;
+            return excelStream;
+        }
+
+
+        public async Task<byte[]> GetDriverReportPdf(List<GetDriversResponse> data)
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            return Document.Create(container =>
+            {
+                // Use Landscape orientation for tables with 10+ columns
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4.Landscape());
+                    page.Margin(1, Unit.Centimetre);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(9).FontFamily(Fonts.Verdana)); // Smaller font for high column count
+
+                    // Header Section
+                    page.Header().Row(row =>
+                    {
+                        row.RelativeItem().Column(col =>
+                        {
+                            col.Item().Text("Driver Report").FontSize(20).Bold().FontColor(Colors.Blue.Medium);
+                            col.Item().Text($"Generated on: {DateTime.Now:dd/MM/yyyy}").FontSize(9).Italic();
+                        });
+                    });
+
+                    page.Content().PaddingTop(10).Table(table =>
+                    {
+                        // EXACTLY 11 columns to match your cells
+                        table.ColumnsDefinition(cols =>
+                        {
+                            cols.ConstantColumn(30);   // S.NO
+                            cols.RelativeColumn(2);    // Vehicle
+                            cols.RelativeColumn(2.5f); // DriverName
+                            cols.RelativeColumn(2);    // StaffId
+                            cols.RelativeColumn(2.5f); // Mobile
+                            cols.RelativeColumn(3);    // EmiratesId
+                            cols.RelativeColumn(2.5f); // Passport
+                            cols.RelativeColumn(2.5f); // Passport
+                            cols.RelativeColumn(2.5f); // Passport
+                            cols.RelativeColumn(2.5f); // Passport
+                            cols.RelativeColumn(2.5f); // Passport
+
+                        });
+
+                        // Header Styling
+                        table.Header(h =>
+                        {
+                            IContainer HeaderStyle(IContainer container) =>
+                                container.DefaultTextStyle(x => x.SemiBold().FontColor(Colors.White))
+                                         .PaddingVertical(5)
+                                         .Background(Colors.Blue.Medium)
+                                         .AlignCenter()
+                                         .AlignMiddle();
+
+                            h.Cell().Element(HeaderStyle).Text("S.NO");
+                            h.Cell().Element(HeaderStyle).Text("StaffId");
+                            h.Cell().Element(HeaderStyle).Text("Name");
+                            h.Cell().Element(HeaderStyle).Text("EmailAddress");
+                            h.Cell().Element(HeaderStyle).Text("MobileNumber"); ;
+                            h.Cell().Element(HeaderStyle).Text("EmiratesId");
+                            h.Cell().Element(HeaderStyle).Text("LicenseType");
+                            h.Cell().Element(HeaderStyle).Text("LicenseNumber");
+                            h.Cell().Element(HeaderStyle).Text("LicenseExpiryDate");
+                            h.Cell().Element(HeaderStyle).Text("JoiningDate");
+                            h.Cell().Element(HeaderStyle).Text("Status");
+
+                        });
+
+                        // Data Rows
+                        int i = 1;
+                        foreach (var item in data)
+                        {
+                            var bgColor = i % 2 == 0 ? Colors.Grey.Lighten4 : Colors.White;
+
+                            IContainer CellStyle(IContainer container) =>
+                                container.Padding(4)
+                                         .Background(bgColor)
+                                         .BorderBottom(0.5f)
+                                         .BorderColor(Colors.Grey.Lighten2)
+                                         .AlignMiddle();
+
+                            table.Cell().Element(CellStyle).AlignCenter().Text(i++.ToString());
+                            table.Cell().Element(CellStyle).Text(item.StaffIdNum);
+                            table.Cell().Element(CellStyle).Text(item.Name);
+                            table.Cell().Element(CellStyle).AlignCenter().Text(item.Email);
+                            table.Cell().Element(CellStyle).AlignCenter().Text(item.MobileNumber);
+                            table.Cell().Element(CellStyle).AlignCenter().Text(item.EmiratesId);
+                            table.Cell().Element(CellStyle).AlignCenter().Text(item.LicenseType);
+                            table.Cell().Element(CellStyle).AlignCenter().Text(item.LicenseNumber);
+                            table.Cell().Element(CellStyle).AlignCenter().Text(item.LicenseExpiryDate.ToString("dd/MM/yyyy") ?? "-");
+                            table.Cell().Element(CellStyle).AlignCenter().Text(item.JoiningDate.ToString("dd/MM/yyyy") ?? "-");
+                            table.Cell().Element(CellStyle).AlignCenter().Text(item.Status switch
+                            {
+                                1 => "Available",
+                                2 => "ASSIGNED",
+                                3 => "SICK",
+                                4 => "Vacation",
+                                5 => "InActive"
+                            });
+                        }
+                    });
+
+                    page.Footer().AlignCenter().Text(x =>
+                    {
+                        x.Span("Page ");
+                        x.CurrentPageNumber();
+                    });
+                });
+            }).GeneratePdf();
+        }
     }
-
-
-
 }

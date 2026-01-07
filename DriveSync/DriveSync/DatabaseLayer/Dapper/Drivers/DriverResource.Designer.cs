@@ -89,6 +89,41 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         ///JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
         ///W [rest of string was truncated]&quot;;.
         /// </summary>
+        public static string DriverReport {
+            get {
+                return ResourceManager.GetString("DriverReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  SELECT
+        /// d.Id,
+        /// d.Name,
+        /// d.Age,
+        /// d.StaffIdNum,
+        /// d.Email,
+        /// d.MobileNumber,
+        /// d.AlternateMobileNumber,
+        /// d.EmiratesId,
+        /// d.PassportNum,
+        /// lt.Type AS &quot;LicenseType&quot;,
+        /// ez.Zone AS &quot;EmirateZone&quot;,
+        ///  d.LicenseNumber,
+        /// d.LicenseExpiryDate,
+        /// d.JoiningDate,
+        /// d.ResignationDate,
+        /// d.VacationDateFrom,
+        /// d.VacationDateTo,
+        /// d.Status,
+        /// d.CreatedDateTime,
+        /// d.UpdatedDateTime,
+        /// d.Deleted,
+        /// d.Remarks
+        ///FROM Driver d
+        ///JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
+        ///JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
+        ///W [rest of string was truncated]&quot;;.
+        /// </summary>
         public static string GetDrivers {
             get {
                 return ResourceManager.GetString("GetDrivers", resourceCulture);
