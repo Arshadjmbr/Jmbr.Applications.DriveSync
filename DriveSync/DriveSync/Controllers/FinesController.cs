@@ -42,11 +42,25 @@ namespace DriveSync.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetFines()
+        public async Task<IActionResult> GetFines([FromQuery] FinePaginationRequest request, string? searchText)
         {
             try
             {
-                List<GetFineResponse> result = await mFinesBl.GetFines();
+                PaginatedResponse<GetFineResponse> result = await mFinesBl.GetFines(request, searchText);
+                return Ok(result);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
+
+        [HttpGet("vehicles-dropdown")]
+        public async Task<IActionResult> GetVehicles()
+        {
+            try
+            {
+                List<VehicleDropdownResponse> result = await mFinesBl.GetVehicleDropdown();
                 return Ok(result);
             }
             catch (PlatformException ex)

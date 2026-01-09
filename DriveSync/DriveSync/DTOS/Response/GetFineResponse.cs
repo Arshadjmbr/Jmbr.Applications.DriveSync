@@ -2,6 +2,7 @@
 {
     public class GetFineResponse
     {
+        public int TotalRecords { get; set; }
         public long Id { get; set; }
         public string FineNumber { get; set; }
         public decimal Amount { get; set; }

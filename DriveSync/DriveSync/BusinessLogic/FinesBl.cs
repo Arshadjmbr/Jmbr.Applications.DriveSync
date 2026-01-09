@@ -2,6 +2,7 @@
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.BusinessLogic
 {
@@ -15,9 +16,14 @@ namespace DriveSync.BusinessLogic
         {
             return await mFinesBr.UpdateFine(fineId, updateFineRequest);
         }
-        public async Task<List<GetFineResponse>> GetFines()
+        public async Task<PaginatedResponse<GetFineResponse>> GetFines([FromQuery] FinePaginationRequest request, string? searchText)
         {
-            return await mFinesBr.GetFines();
+            return await mFinesBr.GetFines(request, searchText);
+        }
+        
+        public async Task<List<VehicleDropdownResponse>> GetVehicleDropdown()
+        {
+            return await mFinesBr.GetVehicleDropdown();
         }
     }
 }

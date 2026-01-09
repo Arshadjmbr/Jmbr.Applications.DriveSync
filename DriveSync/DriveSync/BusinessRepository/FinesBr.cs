@@ -8,6 +8,7 @@ using DriveSync.DTOS.Response;
 using DriveSync.Entity.Model;
 using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -138,13 +139,35 @@ namespace DriveSync.BusinessRepository
             return "Fine updated successfully.";
         }
 
-        public async Task<List<GetFineResponse>> GetFines()
+        public async Task<PaginatedResponse<GetFineResponse>> GetFines([FromQuery] FinePaginationRequest request, string? searchText)
         {
-            List<GetFineResponse> zones = new List<GetFineResponse>();
+            int rowSkip = request.pageSize > 0 ? request.pageSize * request.pageIndex : 0;
+            PaginatedResponse<GetFineResponse> paginatedResponse = new PaginatedResponse<GetFineResponse>();
+            using SqlConnection sqlConnection = mSqlService.GetSqlConnection();
+            await sqlConnection.OpenAsync();
+            var parameters = new
+            {
+                searchText = string.IsNullOrWhiteSpace(searchText) ? null : searchText,
+                fromDate = request.FromDate,
+                toDate = request.ToDate,
+                rowSkip,
+                takeRows = request.pageSize
+            };
+                var fineResposnes = (await sqlConnection.QueryAsync<GetFineResponse>(FineResource.getFines, parameters)).ToList();
+            await sqlConnection.CloseAsync();
+            paginatedResponse.Response = fineResposnes;
+                paginatedResponse.TotalRecords =fineResposnes.FirstOrDefault()?.TotalRecords ?? 0;
+
+            return paginatedResponse;
+        }
+
+        public async Task<List<VehicleDropdownResponse>> GetVehicleDropdown()
+        {
+            List<VehicleDropdownResponse> zones = new List<VehicleDropdownResponse>();
             using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
             {
                 await sqlConnection.OpenAsync();
-                var zoneresponses = await sqlConnection.QueryAsync<GetFineResponse>(FineResource.getFines);
+                var zoneresponses = await sqlConnection.QueryAsync<VehicleDropdownResponse>(FineResource.getvehicles_fines);
                 zones = zoneresponses.ToList();
                 await sqlConnection.CloseAsync();
             }
