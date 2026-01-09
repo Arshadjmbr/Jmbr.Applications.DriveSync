@@ -1,5 +1,6 @@
 ﻿using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.BusinessRepository.IBusinessRepository
 {
@@ -7,7 +8,8 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
     {
         Task<List<VehicleTypeResponse>> GetVehicleTypes();
         Task<string> CreateVehicle(CreateVehicleRequest createVehicleRequest);
-        Task<List<GetVehicleResponse>> GetVehicles();
+        Task<PaginatedResponse<GetVehicleResponse>> GetVehicles([FromQuery] FinePaginationRequest request, string? searchText);
+
         Task<List<VehicleDropdownResponse>> GetVehicleDropdowns();
         Task<string> EditVehicle(long id, EditVehicleRequest editVehicleRequest);
 

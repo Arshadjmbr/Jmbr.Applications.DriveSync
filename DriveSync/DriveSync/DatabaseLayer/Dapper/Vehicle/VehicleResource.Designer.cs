@@ -74,7 +74,9 @@ namespace DriveSync.DatabaseLayer.Dapper.Vehicle {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT v.Id,
+        ///   Looks up a localized string similar to SELECT
+        ///COUNT(*) OVER() AS TotalRecords,
+        ///v.Id,
         ///v.PlateNumber,
         ///v.Model,
         ///vt.Type,
@@ -87,7 +89,13 @@ namespace DriveSync.DatabaseLayer.Dapper.Vehicle {
         ///FROM Vehicle v
         ///JOIN VehicleType vt ON v.VehicleTypeId = vt.Id
         ///JOIN RentalCompanies rc ON v.RentalCompanyId = rc.Id 
-        ///WHERE v.Deleted =0.
+        ///WHERE v.Deleted =0
+        ///AND
+        ///        (@searchText IS NULL OR
+        ///        v.PlateNumber LIKE &apos;%&apos; + @searchText + &apos;%&apos; OR
+        ///        rc.CompanyName LIKE &apos;%&apos; + @searchText + &apos;%&apos;)
+        ///ORDER BY v.CreatedDateTime DESC
+        ///OFFSET  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GetVehicles {
             get {

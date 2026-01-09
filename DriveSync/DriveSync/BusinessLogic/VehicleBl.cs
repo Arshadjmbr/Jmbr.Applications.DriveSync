@@ -2,6 +2,7 @@
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.BusinessLogic
 {
@@ -17,9 +18,9 @@ namespace DriveSync.BusinessLogic
             return await mVehicleBr.CreateVehicle(createVehicleRequest);
         }
 
-        public async Task<List<GetVehicleResponse>> GetVehicles()
+        public async Task<PaginatedResponse<GetVehicleResponse>> GetVehicles([FromQuery] FinePaginationRequest request, string? searchText)
         {
-            return await mVehicleBr.GetVehicles();
+            return await mVehicleBr.GetVehicles(request, searchText);
         }
 
         public async Task<List<VehicleDropdownResponse>> GetVehicleDropdowns()

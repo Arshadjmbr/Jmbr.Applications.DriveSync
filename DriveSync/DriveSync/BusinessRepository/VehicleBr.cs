@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Azure;
+using Dapper;
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DatabaseLayer.Dapper.Vehicle;
 using DriveSync.DatabaseLayer.DBContext;
@@ -8,6 +9,7 @@ using DriveSync.Entity.Model;
 using DriveSync.Handlers.Constants;
 using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -57,16 +59,24 @@ namespace DriveSync.BusinessRepository
             return "Vehicle Added Successfully";
         }
 
-        public async Task<List<GetVehicleResponse>> GetVehicles()
+        public async Task<PaginatedResponse<GetVehicleResponse>> GetVehicles([FromQuery] FinePaginationRequest request, string? searchText)
         {
-            List<GetVehicleResponse> responses = new List<GetVehicleResponse>();
-            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            int rowSkip = request.pageSize > 0 ? request.pageSize * request.pageIndex : 0;
+            PaginatedResponse<GetVehicleResponse> responses = new PaginatedResponse<GetVehicleResponse>();
+            using SqlConnection sqlConnection = mSqlService.GetSqlConnection();
+            await sqlConnection.OpenAsync();
+            var parameters = new
             {
-                await sqlConnection.OpenAsync();
-                var vehicleresponse = await sqlConnection.QueryAsync<GetVehicleResponse>(VehicleResource.GetVehicles);
-                responses = vehicleresponse.ToList();
-                await sqlConnection.CloseAsync();
-            }
+                searchText = string.IsNullOrWhiteSpace(searchText) ? null : searchText,
+                fromDate = request.FromDate,
+                toDate = request.ToDate,
+                rowSkip,
+                takeRows = request.pageSize
+            };
+            var vehicleresponse = (await sqlConnection.QueryAsync<GetVehicleResponse>(VehicleResource.GetVehicles, parameters)).ToList();
+            await sqlConnection.CloseAsync();
+            responses.Response = vehicleresponse;
+            responses.TotalRecords = vehicleresponse.FirstOrDefault()?.TotalRecords ?? 0;
             return responses;
         }
 
