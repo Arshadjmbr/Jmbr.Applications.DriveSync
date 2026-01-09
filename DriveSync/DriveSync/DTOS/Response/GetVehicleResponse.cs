@@ -2,6 +2,7 @@
 {
     public class GetVehicleResponse
     {
+        public int TotalRecords { get; set; }
         public long Id { get; set; }
         public string PlateNumber { get; set; }
         public string Type { get; set; }

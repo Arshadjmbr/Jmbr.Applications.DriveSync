@@ -42,11 +42,11 @@ namespace DriveSync.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> GetVehicles()
+        public async Task<IActionResult> GetVehicles([FromQuery] FinePaginationRequest request, string? searchText)
         {
             try
             {
-                List<GetVehicleResponse> response = await mVehicleBl.GetVehicles();
+                PaginatedResponse<GetVehicleResponse> response = await mVehicleBl.GetVehicles(request, searchText);
                 return Ok(response);
             }
             catch (PlatformException ex)
