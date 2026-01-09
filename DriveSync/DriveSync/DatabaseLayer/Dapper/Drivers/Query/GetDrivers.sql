@@ -1,4 +1,5 @@
 ﻿ SELECT
+     COUNT(*) OVER() AS TotalRecords,
  d.Id,
  d.Name,
  d.Age,
@@ -25,3 +26,13 @@ FROM Driver d
 JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
 JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
 WHERE Deleted = 0
+AND
+        (@searchText IS NULL OR
+        d.Name LIKE '%' + @searchText + '%' OR
+        d.StaffIdNum LIKE '%' + @searchText + '%' OR
+        d.Email LIKE '%' + @searchText + '%' OR
+        d.EmiratesId LIKE '%' + @searchText + '%' OR
+        d.PassportNum LIKE '%' + @searchText + '%')
+ORDER BY d.CreatedDateTime DESC
+OFFSET @rowSkip ROWS 
+FETCH NEXT @takeRows ROWS ONLY;

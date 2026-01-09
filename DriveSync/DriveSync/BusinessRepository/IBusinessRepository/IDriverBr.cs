@@ -1,5 +1,6 @@
 ﻿using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.BusinessRepository.IBusinessRepository
 {
@@ -8,7 +9,7 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<string> CreateDrivers(CreateDriverRequest createDriversRequest);
         Task<List<EmirateZoneResponse>> GetZone();
         Task<List<LicenseTypeResponse>> GetLicenseType();
-        Task<List<GetDriversResponse>> GetDrivers();
+        Task<PaginatedResponse<GetDriversResponse>> GetDrivers([FromQuery] FinePaginationRequest request, string? searchText);
         Task<List<DriversDropdownResponse>> GetDropdowns();
         Task<string> EditDriver(long Id, EditDriverRequest editDriverRequest);
         Task<string> BulkUploadDrivers(List<BulkDriverRequest> driverList);

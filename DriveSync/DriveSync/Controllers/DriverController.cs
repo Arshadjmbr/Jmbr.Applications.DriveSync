@@ -57,11 +57,11 @@ namespace DriveSync.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDrivers()
+        public async Task<IActionResult> GetDrivers([FromQuery] FinePaginationRequest request, string? searchText)
         {
             try
             {
-                List<GetDriversResponse> response = await mDriverBl.GetDrivers();
+                PaginatedResponse<GetDriversResponse> response = await mDriverBl.GetDrivers(request, searchText);
                 return Ok(response);
             }
             catch (PlatformException ex)
