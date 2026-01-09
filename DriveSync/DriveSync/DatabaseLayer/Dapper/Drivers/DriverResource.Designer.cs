@@ -97,6 +97,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         
         /// <summary>
         ///   Looks up a localized string similar to  SELECT
+        ///     COUNT(*) OVER() AS TotalRecords,
         /// d.Id,
         /// d.Name,
         /// d.Age,
@@ -121,8 +122,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         /// d.Remarks
         ///FROM Driver d
         ///JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
-        ///JOIN EmirateZone ez ON ez.Id = d.EmiratesZoneId
-        ///W [rest of string was truncated]&quot;;.
+        ///JOIN Emirat [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GetDrivers {
             get {

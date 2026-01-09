@@ -8,6 +8,7 @@ using DriveSync.Entity.Model;
 using DriveSync.Handlers.Constants;
 using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Net;
 using static DriveSync.Enum;
@@ -80,17 +81,25 @@ namespace DriveSync.BusinessRepository
             return licenseTypes;
         }
 
-        public async Task<List<GetDriversResponse>> GetDrivers()
+        public async Task<PaginatedResponse<GetDriversResponse>> GetDrivers([FromQuery] FinePaginationRequest request, string? searchText)
         {
-            List<GetDriversResponse> getDriversResponses = new List<GetDriversResponse>();
-            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            int rowSkip = request.pageSize > 0 ? request.pageSize * request.pageIndex : 0;
+            PaginatedResponse<GetDriversResponse> paginatedResponse = new();
+            using SqlConnection sqlConnection = mSqlService.GetSqlConnection();
+            await sqlConnection.OpenAsync();
+            var parameters = new
             {
-                await sqlConnection.OpenAsync();
-                var response = await sqlConnection.QueryAsync<GetDriversResponse>(DriverResource.GetDrivers);
-                getDriversResponses = response.ToList();
-                await sqlConnection.CloseAsync();
-            }
-            return getDriversResponses;
+                searchText = string.IsNullOrWhiteSpace(searchText) ? null : searchText,
+                fromDate = request.FromDate,
+                toDate = request.ToDate,
+                rowSkip,
+                takeRows = request.pageSize
+            };
+            var response = (await sqlConnection.QueryAsync<GetDriversResponse>(DriverResource.GetDrivers, parameters)).ToList();
+            await sqlConnection.CloseAsync();
+            paginatedResponse.Response = response;
+            paginatedResponse.TotalRecords = response.FirstOrDefault()?.TotalRecords ?? 0;
+            return paginatedResponse;
         }
 
         public async Task<List<DriversDropdownResponse>> GetDropdowns()

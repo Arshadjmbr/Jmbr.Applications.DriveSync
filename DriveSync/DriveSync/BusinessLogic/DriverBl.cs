@@ -2,6 +2,7 @@
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.BusinessLogic
 {
@@ -21,9 +22,9 @@ namespace DriveSync.BusinessLogic
             return await mDriverBr.GetLicenseType();
         }
 
-        public async Task<List<GetDriversResponse>> GetDrivers()
+        public async Task<PaginatedResponse<GetDriversResponse>> GetDrivers([FromQuery] FinePaginationRequest request, string? searchText)
         {
-            return await mDriverBr.GetDrivers();
+            return await mDriverBr.GetDrivers(request, searchText);
         }
 
         public async Task<List<DriversDropdownResponse>> GetDropdowns()
@@ -40,5 +41,7 @@ namespace DriveSync.BusinessLogic
         {
             return await mDriverBr.BulkUploadDrivers(driversList);
         }
+
+
     }
 }
