@@ -36,5 +36,9 @@ namespace DriveSync.BusinessLogic
             return await mDriverBr.EditDriver(Id,editDriverRequest);
         }
 
+        public async Task<string> BulkUploadDrivers(List<BulkDriverRequest> driversList)
+        {
+            return await mDriverBr.BulkUploadDrivers(driversList);
+        }
     }
 }

@@ -4,6 +4,7 @@ using DriveSync.DTOS.Response;
 using DriveSync.Handlers.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MiniExcelLibs;
 
 namespace DriveSync.Controllers
 {
@@ -92,6 +93,36 @@ namespace DriveSync.Controllers
             {
                 var response = await mDriverBl.EditDriver(id, editDriverRequest);
                 return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
+
+        [HttpPost("bulk-upload")]
+        public async Task<IActionResult> BulkUpload(IFormFile file) 
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest(new { error = "No file uploaded or file is empty." });
+
+            var extension = Path.GetExtension(file.FileName).ToLower();
+            if (extension != ".xlsx" && extension != ".xls")
+                return BadRequest(new { error = "Invalid file type. Please upload an Excel file." });
+
+            try
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    var driverList = stream.Query<BulkDriverRequest>().ToList();
+
+                    if (driverList == null || !driverList.Any())
+                        return BadRequest(new { error = "The Excel file is empty." });
+
+                    var response = await mDriverBl.BulkUploadDrivers(driverList);
+
+                    return Ok(response);
+                }
             }
             catch (PlatformException ex)
             {
