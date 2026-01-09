@@ -61,13 +61,29 @@ namespace DriveSync.DatabaseLayer.Dapper.Fines {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to namespace DriveSync.DatabaseLayer.Dapper.Fines.Query
-        ///{
-        ///    public class FineReport
-        ///    {
-        ///    }
-        ///}
-        ///.
+        ///   Looks up a localized string similar to SELECT 
+        ///    d.Name,
+        ///    d.StaffIdNum,
+        ///    f.FineNumber,
+        ///    f.Amount,
+        ///    f.ViolationType,
+        ///    f.Reason,
+        ///    f.IssuedDate,
+        ///    v.PlateNumber,
+        ///    f.Paid
+        ///FROM 
+        ///    Fines f
+        ///JOIN Driver d ON f.DriverId = d.Id    
+        ///JOIN Vehicle v ON f.VehicleId = v.Id
+        ///WHERE 
+        ///    (@status IS NULL OR f.Paid = @status) 
+        ///    AND (
+        ///        @searchText IS NULL OR
+        ///        d.StaffIdNum LIKE &apos;%&apos; + @searchText + &apos;%&apos; OR
+        ///        d.Name LIKE &apos;%&apos; + @searchText + &apos;%&apos;
+        ///    )
+        ///    AND (
+        ///        @fromDate IS NULL OR @toDate IS [rest of string was truncated]&quot;;.
         /// </summary>
         public static string FineReport {
             get {
@@ -77,6 +93,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Fines {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT 
+        ///    COUNT(*) OVER() AS TotalRecords,
         ///f.Id,
         ///f.FineNumber,
         ///f.Amount,
@@ -91,12 +108,30 @@ namespace DriveSync.DatabaseLayer.Dapper.Fines {
         ///FROM Fines f
         ///JOIN Driver d ON f.DriverId = d.Id
         ///JOIN Vehicle v ON f.VehicleId = v.Id
-        ///ORDER BY f.CreatedDateTime DESC
-        ///.
+        ///WHERE 
+        ///        @searchText IS NULL OR
+        ///        d.Name LIKE &apos;%&apos; + @searchText + &apos;%&apos; OR
+        ///        v.PlateNumber LIKE &apos;%&apos; + @searchText + &apos;%&apos; OR
+        ///        f.FineNumber LIKE &apos;%&apos; + @searchText + &apos;%&apos;
+        ///ORDER  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string getFines {
             get {
                 return ResourceManager.GetString("getFines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT 
+        ///Id,
+        ///PlateNumber
+        ///FROM Vehicle 
+        ///WHERE DELETED = 0
+        ///.
+        /// </summary>
+        public static string getvehicles_fines {
+            get {
+                return ResourceManager.GetString("getvehicles_fines", resourceCulture);
             }
         }
     }
