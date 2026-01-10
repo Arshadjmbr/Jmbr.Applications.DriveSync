@@ -121,6 +121,9 @@
   <data name="GetDropdownVehicles" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Query\GetDropdownVehicles.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="GetVehicleCount" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Query\GetVehicleCount.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="GetVehicles" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Query\GetVehicles.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

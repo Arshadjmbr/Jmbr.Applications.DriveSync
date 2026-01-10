@@ -31,5 +31,9 @@ namespace DriveSync.BusinessLogic
         {
             return await mVehicleBr.EditVehicle(id, editVehicleRequest);
         }
+        public async Task<VehicleCountResponse> GetVehicleCount()
+        {
+            return await mVehicleBr.GetVehicleCount();
+        }
     }
 }

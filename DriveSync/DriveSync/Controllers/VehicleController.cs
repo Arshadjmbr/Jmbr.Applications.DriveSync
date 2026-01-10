@@ -85,5 +85,19 @@ namespace DriveSync.Controllers
                 return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
         }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetVehicleCount()
+        {
+            try
+            {
+                var response = await mVehicleBl.GetVehicleCount();
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
     }
 }
