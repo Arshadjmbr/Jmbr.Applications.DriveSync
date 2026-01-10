@@ -74,6 +74,22 @@ namespace DriveSync.DatabaseLayer.Dapper.Vehicle {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT 
+        ///    COUNT(*) AS TotalActiveRecords,
+        ///    SUM(CASE WHEN v.Status = 1 THEN 1 ELSE 0 END) AS AvailableCount,
+        ///    SUM(CASE WHEN v.Status = 2 THEN 1 ELSE 0 END) AS AssignedCount,
+        ///    SUM(CASE WHEN v.Status = 3 THEN 1 ELSE 0 END) AS InMaintenanceCount,
+        ///    SUM(CASE WHEN v.Status = 4 THEN 1 ELSE 0 END) AS OutOfServiceCount,
+        ///    SUM(CASE WHEN v.Status = 1 AND v.MulkiyaExpiryDate &gt;= GETDATE() THEN 1 ELSE 0 END) AS AvailableWithValidMulkiyaCount,
+        ///    SUM(CASE WHEN v.Status = 1 AND v.MulkiyaExpiryDate &lt;  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string GetVehicleCount {
+            get {
+                return ResourceManager.GetString("GetVehicleCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT
         ///COUNT(*) OVER() AS TotalRecords,
         ///v.Id,

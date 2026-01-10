@@ -17,7 +17,7 @@ using static DriveSync.Enum;
 
 namespace DriveSync.BusinessRepository  
 {
-    public class VehicleBr(DriveSyncDbContext mDriveSyncDbContext, ISqlService mSqlService):IVehicleBr
+    public class VehicleBr(DriveSyncDbContext mDriveSyncDbContext, ISqlService mSqlService) : IVehicleBr
     {
         public async Task<List<VehicleTypeResponse>> GetVehicleTypes()
         {
@@ -35,7 +35,7 @@ namespace DriveSync.BusinessRepository
         public async Task<string> CreateVehicle(CreateVehicleRequest request)
         {
             string plateNum = request.PlateNumber?.Trim().ToLowerInvariant();
-            bool exists = await mDriveSyncDbContext.Vehicle.AnyAsync(c => c.PlateNumber.Trim().ToLower() == plateNum && c.Deleted ==0);
+            bool exists = await mDriveSyncDbContext.Vehicle.AnyAsync(c => c.PlateNumber.Trim().ToLower() == plateNum && c.Deleted == 0);
             if (exists)
             {
                 throw new PlatformException((int)HttpStatusCode.BadRequest, $"Vehicle with the Plate Number {request.PlateNumber} already exist!");
@@ -49,7 +49,7 @@ namespace DriveSync.BusinessRepository
                 Model = request.Model,
                 RentalCompanyId = request.RentalCompanyid,
                 Status = CommonConstants.VEHICLE_AVAILABLE,
-                MulkiyaExpiryDate = request.MulkiyaExpiryDate,  
+                MulkiyaExpiryDate = request.MulkiyaExpiryDate,
                 CreatedDateTime = DateTime.UtcNow,
                 UpdatedDateTime = DateTime.UtcNow,
                 Remarks = request.Remarks
@@ -115,6 +115,18 @@ namespace DriveSync.BusinessRepository
             mDriveSyncDbContext.Vehicle.Update(vehicle);
             await mDriveSyncDbContext.SaveChangesAsync();
             return "Vehicle Updated Successfully";
+        }
+        public async Task<VehicleCountResponse> GetVehicleCount()
+        {
+            VehicleCountResponse response = new VehicleCountResponse();
+            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            {
+                await sqlConnection.OpenAsync();
+                var vehicleCounts = await sqlConnection.QueryFirstOrDefaultAsync<VehicleCountResponse>(VehicleResource.GetVehicleCount);
+                response = vehicleCounts;
+                await sqlConnection.CloseAsync();
+            }
+            return response;
         }
     }
 }
