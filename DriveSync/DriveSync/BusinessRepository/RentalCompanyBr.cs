@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Azure.Core;
+using Dapper;
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DatabaseLayer.Dapper.RentalCompanies;
 using DriveSync.DatabaseLayer.DBContext;
@@ -8,6 +9,7 @@ using DriveSync.Entity.Model;
 using DriveSync.Handlers.Constants;
 using DriveSync.Handlers.ExceptionHandler;
 using DriveSync.Services.IServices;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -46,16 +48,24 @@ namespace DriveSync.BusinessRepository
 
         }
 
-        public async Task<List<RentalCompanyResponse>> GetRentalCompanies()
+        public async Task<PaginatedResponse<RentalCompanyResponse>> GetRentalCompanies([FromQuery] FinePaginationRequest request, string? searchText)
         {
-            List<RentalCompanyResponse> response = new List<RentalCompanyResponse>();
-            using (SqlConnection sqlconnection = mSqlService.GetSqlConnection())
+            int rowSkip = request.pageSize > 0 ? request.pageSize * request.pageIndex : 0;
+            PaginatedResponse<RentalCompanyResponse> response = new PaginatedResponse<RentalCompanyResponse>();
+            using SqlConnection sqlconnection = mSqlService.GetSqlConnection();
+              await sqlconnection.OpenAsync();
+            var parameters = new
             {
-                await sqlconnection.OpenAsync();
-                var responses = await sqlconnection.QueryAsync<RentalCompanyResponse>(RentalCompanyResource.GetRentalCompanies);
-                response = responses.ToList();
+                searchText = string.IsNullOrWhiteSpace(searchText) ? null : searchText,
+                fromDate = request.FromDate,
+                toDate = request.ToDate,
+                rowSkip,
+                takeRows = request.pageSize
+            };
+            var responses = (await sqlconnection.QueryAsync<RentalCompanyResponse>(RentalCompanyResource.GetRentalCompanies, parameters)).ToList();
                 await sqlconnection.CloseAsync();
-            }
+            response.Response = responses;
+            response.TotalRecords = responses.FirstOrDefault()?.TotalRecords ?? 0;
             return response;
         }
 

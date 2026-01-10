@@ -62,6 +62,7 @@ namespace DriveSync.DatabaseLayer.Dapper.RentalCompanies {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT 
+        ///	COUNT(*) OVER() AS TotalRecords,
         ///	&quot;Id&quot;,
         ///	&quot;CompanyName&quot;,
         ///	&quot;ContactNumber&quot;,
@@ -71,7 +72,14 @@ namespace DriveSync.DatabaseLayer.Dapper.RentalCompanies {
         ///	&quot;UpdatedDateTime&quot;,
         ///	&quot;Remarks&quot;,
         ///	&quot;Deleted&quot;
-        ///FROM RentalCompanies.
+        ///FROM RentalCompanies
+        ///WHERE
+        ///  @searchText IS NULL OR
+        ///  CompanyName LIKE &apos;%&apos; + @searchText + &apos;%&apos;
+        ///ORDER BY
+        ///&quot;CreatedDateTime&quot; DESC
+        ///OFFSET @rowSkip ROWS 
+        ///FETCH NEXT @takeRows ROWS ONLY;.
         /// </summary>
         public static string GetRentalCompanies {
             get {

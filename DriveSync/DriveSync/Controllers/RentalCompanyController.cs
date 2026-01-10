@@ -1,5 +1,6 @@
 ﻿using DriveSync.BusinessLogic.IBusinesLogic;
 using DriveSync.DTOS.Request;
+using DriveSync.DTOS.Response;
 using DriveSync.Handlers.ExceptionHandler;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +27,11 @@ namespace DriveSync.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRentalCompanies()
+        public async Task<IActionResult> GetRentalCompanies([FromQuery] FinePaginationRequest request, string? searchText)
         {
             try
             {
-                var response = await mRentalCompanyBl.GetRentalCompanies();
+                PaginatedResponse<RentalCompanyResponse> response = await mRentalCompanyBl.GetRentalCompanies(request, searchText);
                 return Ok(response);
             }
             catch (PlatformException ex)

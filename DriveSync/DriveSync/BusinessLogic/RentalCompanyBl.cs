@@ -2,6 +2,7 @@
 using DriveSync.BusinessRepository.IBusinessRepository;
 using DriveSync.DTOS.Request;
 using DriveSync.DTOS.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DriveSync.BusinessLogic
 {
@@ -12,9 +13,9 @@ namespace DriveSync.BusinessLogic
             return await mRentalCompanyBr.Register(request);
         }
 
-        public async Task<List<RentalCompanyResponse>> GetRentalCompanies()
+        public async Task<PaginatedResponse<RentalCompanyResponse>> GetRentalCompanies([FromQuery] FinePaginationRequest request, string? searchText)
         {
-            return await mRentalCompanyBr.GetRentalCompanies();
+            return await mRentalCompanyBr.GetRentalCompanies(request, searchText);
         }
 
         public async Task<string> UpdateCompany(long id, UpdateCompanyRequest updateCompanyRequest)
