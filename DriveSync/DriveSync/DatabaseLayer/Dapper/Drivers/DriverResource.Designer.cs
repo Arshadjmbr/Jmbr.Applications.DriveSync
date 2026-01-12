@@ -98,6 +98,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         /// <summary>
         ///   Looks up a localized string similar to  SELECT
         ///     COUNT(*) OVER() AS TotalRecords,
+        ///     SUM(CASE WHEN d.Status = 1 THEN 1 ELSE 0 END) OVER() AS AvailableCount,
         /// d.Id,
         /// d.Name,
         /// d.Age,
@@ -119,14 +120,27 @@ namespace DriveSync.DatabaseLayer.Dapper.Drivers {
         /// d.CreatedDateTime,
         /// d.UpdatedDateTime,
         /// d.Deleted,
-        /// d.Remarks
-        ///FROM Driver d
-        ///JOIN LicenseType lt ON lt.Id = d.LicenseTypeId
-        ///JOIN Emirat [rest of string was truncated]&quot;;.
+        /// d.Remar [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GetDrivers {
             get {
                 return ResourceManager.GetString("GetDrivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT
+        ///COUNT(*) AS TotalDrivers,
+        ///SUM(CASE WHEN Status = 1 THEN 1 ELSE 0 END) AS DriverAvailableCount,
+        ///SUM(CASE WHEN Status = 2 THEN 1 ELSE 0 END) AS DriverAssignedCount,
+        ///SUM(CASE WHEN Status = 3 THEN 1 ELSE 0 END) AS DriverSickCount,
+        ///SUM(CASE WHEN Status = 4 THEN 1 ELSE 0 END) AS DriverOnVacationCount
+        ///FROM Driver
+        ///WHERE Deleted = 0.
+        /// </summary>
+        public static string getDriversCount {
+            get {
+                return ResourceManager.GetString("getDriversCount", resourceCulture);
             }
         }
         

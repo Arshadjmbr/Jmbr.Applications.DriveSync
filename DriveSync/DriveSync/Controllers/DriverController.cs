@@ -101,7 +101,7 @@ namespace DriveSync.Controllers
         }
 
         [HttpPost("bulk-upload")]
-        public async Task<IActionResult> BulkUpload(IFormFile file) 
+        public async Task<IActionResult> BulkUpload(IFormFile file)
         {
             if (file == null || file.Length == 0)
                 return BadRequest(new { error = "No file uploaded or file is empty." });
@@ -123,6 +123,20 @@ namespace DriveSync.Controllers
 
                     return Ok(response);
                 }
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
+
+        [HttpGet("driver-count")]
+        public async Task<IActionResult> GetDriverCount()
+        {
+            try
+            {
+                DriversCountResponse response = await mDriverBl.GetDriversCount();
+                return Ok(response);
             }
             catch (PlatformException ex)
             {

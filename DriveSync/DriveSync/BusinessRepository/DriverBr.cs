@@ -242,5 +242,17 @@ namespace DriveSync.BusinessRepository
             await mDriveSyncDbContext.SaveChangesAsync();
             return $"{driversToInsert.Count} drivers imported successfully.";
         }
+        public async Task<DriversCountResponse> GetDriversCount()
+        {
+            DriversCountResponse driversCountResponse = new DriversCountResponse();
+            using (SqlConnection sqlConnection = mSqlService.GetSqlConnection())
+            {
+                await sqlConnection.OpenAsync();
+                var response = await sqlConnection.QueryFirstOrDefaultAsync<DriversCountResponse>(DriverResource.getDriversCount);
+                driversCountResponse = response;
+                await sqlConnection.CloseAsync();
+            }
+            return driversCountResponse;
+        }
     }
 }

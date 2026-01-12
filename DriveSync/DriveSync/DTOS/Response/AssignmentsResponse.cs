@@ -2,6 +2,8 @@
 {
     public class AssignmentsResponse
     {
+        public int ActiveAssignmentsCount { get; set; } 
+        public int CompletedAssignmentsCount { get; set; }
         public int TotalRecords { get; set; }
         public long Id { get; set; }
         public string Name { get; set; }

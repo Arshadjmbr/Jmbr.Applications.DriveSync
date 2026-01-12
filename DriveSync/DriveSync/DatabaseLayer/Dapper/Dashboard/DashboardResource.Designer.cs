@@ -63,6 +63,8 @@ namespace DriveSync.DatabaseLayer.Dapper.Dashboard {
         /// <summary>
         ///   Looks up a localized string similar to SELECT 
         ///    COUNT(*) OVER() AS TotalRecords,
+        ///    Sum(CASE WHEN a.Status = 1 THEN 1 ELSE 0 END) OVER() AS ActiveAssignmentsCount,
+        ///    Sum(CASE WHEN a.Status = 2 THEN 1 ELSE 0 END) OVER() AS CompletedAssignmentsCount,
         ///    a.Id,
         ///    d.Name,
         ///    d.StaffIdNum,
@@ -77,14 +79,7 @@ namespace DriveSync.DatabaseLayer.Dapper.Dashboard {
         ///    a.Status,
         ///    a.Remarks
         ///FROM Assignments a
-        ///JOIN Driver d ON a.DriverId = d.Id
-        ///JOIN Vehicle v ON a.VehicleId = v.Id
-        ///WHERE 
-        ///    d.Deleted = 0 
-        ///    AND v.Deleted = 0
-        ///    AND (
-        ///        @searchText IS NULL OR
-        ///        d.Name LIKE &apos;%&apos; + @search [rest of string was truncated]&quot;;.
+        ///JOIN Driver d ON a.DriverId  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string getAllAssignments {
             get {

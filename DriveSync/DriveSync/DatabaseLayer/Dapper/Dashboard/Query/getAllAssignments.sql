@@ -1,5 +1,7 @@
 ﻿SELECT 
     COUNT(*) OVER() AS TotalRecords,
+    Sum(CASE WHEN a.Status = 1 THEN 1 ELSE 0 END) OVER() AS ActiveAssignmentsCount,
+    Sum(CASE WHEN a.Status = 2 THEN 1 ELSE 0 END) OVER() AS CompletedAssignmentsCount,
     a.Id,
     d.Name,
     d.StaffIdNum,
