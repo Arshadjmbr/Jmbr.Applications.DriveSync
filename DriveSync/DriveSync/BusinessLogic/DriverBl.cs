@@ -41,7 +41,9 @@ namespace DriveSync.BusinessLogic
         {
             return await mDriverBr.BulkUploadDrivers(driversList);
         }
-
-
+        public async Task<DriversCountResponse> GetDriversCount()
+        {
+            return await mDriverBr.GetDriversCount();
+        }
     }
 }
