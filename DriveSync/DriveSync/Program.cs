@@ -98,7 +98,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors();
-//app.UseMiddleware<JwtTokenValidationMiddleWare>();
+app.UseMiddleware<JwtTokenValidationMiddleWare>();
 
 app.MigrateDatabase();
 
