@@ -8,6 +8,7 @@
         public string Password { get; set; }
         public int? Age { get; set; }
         public long MobileNumber { get; set; }
+        public long? AlternateMobileNumber { get; set; }
         public int RoleId { get; set; }
     }
 }

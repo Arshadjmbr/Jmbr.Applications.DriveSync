@@ -19,6 +19,7 @@
         public const int DRIVER_ASSIGNED = 2;
         public const int DRIVER_SICK = 3;
         public const int DRIVER_ON_VACATION = 4;
+        public const int DRIVER_RESIGNED = 5;
 
 
 
