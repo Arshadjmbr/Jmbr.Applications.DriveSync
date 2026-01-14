@@ -112,8 +112,8 @@ namespace DriveSync.BusinessRepository
                 EmiratesZoneId = createDriversRequest.EmiratesZoneId,
                 JoiningDate = createDriversRequest.JoiningDate,
                 Status = CommonConstants.DRIVER_AVAILABLE,
-                CreatedDateTime = DateTime.UtcNow,
-                UpdatedDateTime = DateTime.UtcNow,
+                CreatedDateTime = DateTimeOffset.Now,
+                UpdatedDateTime = DateTimeOffset.Now,
                 Remarks = createDriversRequest.Remarks
             };
             await mDriveSyncDbContext.Driver.AddAsync(driver);
@@ -288,7 +288,7 @@ namespace DriveSync.BusinessRepository
             existingDriver.LicenseExpiryDate = editDriverRequest.LicenseExpiryDate ?? existingDriver.LicenseExpiryDate;
             existingDriver.EmiratesZoneId = editDriverRequest.EmiratesZoneId ?? existingDriver.EmiratesZoneId;
             existingDriver.JoiningDate = editDriverRequest.JoiningDate ?? existingDriver.JoiningDate;
-            existingDriver.UpdatedDateTime = DateTime.UtcNow;
+            existingDriver.UpdatedDateTime = DateTimeOffset.Now;
             existingDriver.Remarks = editDriverRequest.Remarks ?? existingDriver.Remarks;
             mDriveSyncDbContext.Driver.Update(existingDriver);
             await mDriveSyncDbContext.SaveChangesAsync();
@@ -350,8 +350,8 @@ namespace DriveSync.BusinessRepository
                     JoiningDate = DateOnly.FromDateTime(item.JoiningDate),
                     Remarks = item.Remarks,
                     Status = CommonConstants.DRIVER_AVAILABLE,
-                    CreatedDateTime = DateTime.UtcNow,
-                    UpdatedDateTime = DateTime.UtcNow,
+                    CreatedDateTime = DateTimeOffset.Now,
+                    UpdatedDateTime = DateTimeOffset.Now,
                 });
 
                 rowTracker++;

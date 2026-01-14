@@ -42,8 +42,8 @@ namespace DriveSync.BusinessRepository
                     DriverId = request.DriverId,
                     StartDateTime = request.StartDateTime,
                     EndDateTime = request.EndDateTime,
-                    CreatedDateTime = DateTime.UtcNow,
-                    UpdatedDateTime = DateTime.UtcNow,
+                    CreatedDateTime = DateTimeOffset.Now,
+                    UpdatedDateTime = DateTimeOffset.Now,
                     Remarks = request.Remarks,
                     Comments = request.Comments,
                     Status = CommonConstants.ASSIGNMENT_ASSIGNED

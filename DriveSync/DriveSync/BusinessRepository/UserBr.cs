@@ -75,8 +75,8 @@ namespace DriveSync.BusinessRepository
                 AlternateMobileNumber = createUserRequest.AlternateMobileNumber,
                 RoleId = createUserRequest.RoleId,
                 Status = CommonConstants.USER_STATUS_ACTIVE,
-                CreatedDateTime = DateTime.UtcNow,
-                UpdatedDateTime = DateTime.UtcNow
+                CreatedDateTime = DateTimeOffset.Now,
+                UpdatedDateTime = DateTimeOffset.Now
             };
             await mDriveSyncDbContext.Users.AddAsync(user);
             await mDriveSyncDbContext.SaveChangesAsync();
