@@ -26,10 +26,8 @@ WHERE
         d.Name LIKE '%' + @searchText + '%' OR
         v.PlateNumber LIKE '%' + @searchText + '%'
     )
-    AND (
-        @fromDate IS NULL OR @toDate IS NULL OR
-        a.CreatedDateTime BETWEEN @fromDate AND @toDate
-    )
+    AND (@fromDate IS NULL OR a.StartDateTime >= @fromDate)
+    AND (@toDate IS NULL OR a.StartDateTime <= @toDate)
 ORDER BY a.CreatedDateTime DESC 
 OFFSET @rowSkip ROWS 
 FETCH NEXT @takeRows ROWS ONLY;

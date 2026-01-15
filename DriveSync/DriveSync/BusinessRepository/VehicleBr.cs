@@ -50,8 +50,8 @@ namespace DriveSync.BusinessRepository
                 RentalCompanyId = request.RentalCompanyid,
                 Status = CommonConstants.VEHICLE_AVAILABLE,
                 MulkiyaExpiryDate = request.MulkiyaExpiryDate,
-                CreatedDateTime = DateTime.UtcNow,
-                UpdatedDateTime = DateTime.UtcNow,
+                CreatedDateTime = DateTimeOffset.Now,
+                UpdatedDateTime = DateTimeOffset.Now,
                 Remarks = request.Remarks
             };
             await mDriveSyncDbContext.Vehicle.AddAsync(vehicle);
@@ -111,7 +111,7 @@ namespace DriveSync.BusinessRepository
             vehicle.RentalCompanyId = request.RentalCompanyId ?? vehicle.RentalCompanyId;
             vehicle.MulkiyaExpiryDate = request.MulkiyaExpiryDate ?? vehicle.MulkiyaExpiryDate;
             vehicle.Remarks = request.Remarks ?? vehicle.Remarks;
-            vehicle.UpdatedDateTime = DateTime.UtcNow;
+            vehicle.UpdatedDateTime = DateTimeOffset.Now;
             mDriveSyncDbContext.Vehicle.Update(vehicle);
             await mDriveSyncDbContext.SaveChangesAsync();
             return "Vehicle Updated Successfully";

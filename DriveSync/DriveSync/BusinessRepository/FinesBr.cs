@@ -50,8 +50,8 @@ namespace DriveSync.BusinessRepository
                 Amount = addFineRequest.Amount,
                 Reason = addFineRequest.Reason,
                 IssuedDate = addFineRequest.IssuedDate,
-                CreatedDateTime = DateTime.UtcNow,
-                UpdatedDateTime = DateTime.UtcNow
+                CreatedDateTime = DateTimeOffset.Now,
+                UpdatedDateTime = DateTimeOffset.Now
             };
             await mDrivesSyncDbContext.Fines.AddAsync(fine);
             await mDrivesSyncDbContext.SaveChangesAsync();
@@ -133,7 +133,7 @@ namespace DriveSync.BusinessRepository
                 {
                     fine.PaidDate = updateFineRequest.PaidDate.Value;
                 }
-                fine.UpdatedDateTime = DateTime.UtcNow;
+                fine.UpdatedDateTime = DateTimeOffset.Now;
 
             await mDrivesSyncDbContext.SaveChangesAsync();
             return "Fine updated successfully.";

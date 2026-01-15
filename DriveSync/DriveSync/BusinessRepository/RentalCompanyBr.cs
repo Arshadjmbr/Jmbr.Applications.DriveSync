@@ -36,8 +36,8 @@ namespace DriveSync.BusinessRepository
                 Address = request.Address,
                 ContactNumber = request.ContactNumber,
                 Remarks = request.Remarks,
-                CreatedDateTime = DateTime.UtcNow,
-                UpdatedDateTime = DateTime.UtcNow,
+                CreatedDateTime = DateTimeOffset.Now,
+                UpdatedDateTime = DateTimeOffset.Now,
                 Status = CommonConstants.RENTAL_COMPANY_ACTIVE,
                 Deleted = 0
             };
@@ -81,7 +81,7 @@ namespace DriveSync.BusinessRepository
             existingCompany.Address = request.Address ?? existingCompany.Address;
             existingCompany.ContactNumber = request.ContactNumber ?? existingCompany.ContactNumber;
             existingCompany.Remarks = request.Remarks ?? existingCompany.Remarks;
-            existingCompany.UpdatedDateTime = DateTime.UtcNow;
+            existingCompany.UpdatedDateTime = DateTimeOffset.Now;
             mDriveSyncDbContext.RentalCompanies.Update(existingCompany);
             await mDriveSyncDbContext.SaveChangesAsync();
             return "Company updated successfully.";
