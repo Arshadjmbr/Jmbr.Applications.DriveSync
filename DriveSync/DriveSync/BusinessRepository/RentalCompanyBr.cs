@@ -86,5 +86,19 @@ namespace DriveSync.BusinessRepository
             await mDriveSyncDbContext.SaveChangesAsync();
             return "Company updated successfully.";
         }
+        public async Task<string> DeleteCompany(long companyId)
+        {
+            var company = await mDriveSyncDbContext.RentalCompanies.FindAsync(companyId);
+            if (company == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.NotFound, $"Company with ID {companyId} not found.");
+            }
+
+            company.Deleted = 1;
+            company.UpdatedDateTime = DateTimeOffset.Now;
+            mDriveSyncDbContext.RentalCompanies.Update(company);
+            await mDriveSyncDbContext.SaveChangesAsync();
+            return "Company deleted successfully.";
+        }
     }
 }

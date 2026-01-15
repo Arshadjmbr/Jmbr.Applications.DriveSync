@@ -10,6 +10,7 @@
 "Comments" VARCHAR(MAX) NULL,
 "Remarks" VARCHAR(MAX) NULL,
 "Status" INT NOT NULL,
+"Deleted" INT NOT NULL DEFAULT 0,
 CONSTRAINT FK_Vehicle_VehicleId FOREIGN KEY ("VehicleId") REFERENCES "Vehicle"("Id"),
 CONSTRAINT FK_Driver_DriverId FOREIGN KEY ("DriverId") REFERENCES "Driver"("Id")
 )

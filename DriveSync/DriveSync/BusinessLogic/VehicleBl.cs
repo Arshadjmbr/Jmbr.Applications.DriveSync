@@ -35,5 +35,9 @@ namespace DriveSync.BusinessLogic
         {
             return await mVehicleBr.GetVehicleCount();
         }
+        public async Task<string> DeleteVehicle(long id)
+        {
+            return await mVehicleBr.DeleteVehicle(id);
+        }
     }
 }

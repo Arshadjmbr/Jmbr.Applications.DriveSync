@@ -14,6 +14,7 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<string> EditDriver(long Id,EditDriverRequest editDriverRequest);
         Task<string> BulkUploadDrivers(List<BulkDriverRequest> driverList);
         Task<DriversCountResponse> GetDriversCount();
+        Task<string> DeleteDriver(long id);
 
     }
 }

@@ -38,12 +38,26 @@ namespace DriveSync.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update-assignment/{id}")]
         public async Task<IActionResult> UpdateAssignmentStatus(long id, [FromBody] UpdateAssignment request)
         {
             try
             {
-                string response = await mDashboardBl.UpdateAssignment(id, request);
+                var response = await mDashboardBl.UpdateAssignment(id, request);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAssignment(long id)
+        {
+            try
+            {
+                var response = await mDashboardBl.DeleteAssignment(id);
                 return Ok(response);
             }
             catch (PlatformException ex)

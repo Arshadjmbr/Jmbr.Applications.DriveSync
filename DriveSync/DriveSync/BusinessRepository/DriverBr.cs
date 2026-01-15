@@ -373,9 +373,28 @@ namespace DriveSync.BusinessRepository
                 await sqlConnection.OpenAsync();
                 var response = await sqlConnection.QueryFirstOrDefaultAsync<DriversCountResponse>(DriverResource.getDriversCount);
                 driversCountResponse = response;
-                await sqlConnection.CloseAsync();
+                return driversCountResponse;
             }
-            return driversCountResponse;
+        }
+
+        public async Task<string> DeleteDriver(long id)
+        {
+            var driver = await mDriveSyncDbContext.Driver.FindAsync(id);
+            if (driver == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.NotFound, $"Driver with ID {id} not found.");
+            }
+
+            if (driver.Status == CommonConstants.DRIVER_ASSIGNED)
+            {
+                throw new PlatformException((int)HttpStatusCode.Conflict, "The driver is assigned and cannot be deleted.");
+            }
+
+            driver.Deleted = 1;
+            driver.UpdatedDateTime = DateTimeOffset.Now;
+            mDriveSyncDbContext.Driver.Update(driver);
+            await mDriveSyncDbContext.SaveChangesAsync();
+            return "Driver deleted successfully.";
         }
     }
 }

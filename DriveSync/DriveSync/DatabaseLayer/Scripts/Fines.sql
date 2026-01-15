@@ -12,7 +12,8 @@
 	Paid INT NOT NULL DEFAULT 0,
 	PaidDate DATE  NULL,
 	CreatedDateTime DATETIMEOFFSET NOT NULL,
-	UpdatedDateTime DATETIMEOFFSET NOT NULL
+	UpdatedDateTime DATETIMEOFFSET NOT NULL,
+	"Deleted" INT NOT NULL DEFAULT 0
 
 	CONSTRAINT Foreign_Key_Fines_Driver FOREIGN KEY (DriverId) REFERENCES Driver(Id),
 	CONSTRAINT Foreign_Key_Fines_Vehicle FOREIGN KEY (VehicleId) REFERENCES Vehicle(Id)

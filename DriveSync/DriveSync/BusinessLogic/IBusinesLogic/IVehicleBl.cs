@@ -13,5 +13,6 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<string> EditVehicle(long id, EditVehicleRequest editVehicleRequest);
 
         Task<VehicleCountResponse> GetVehicleCount();
+        Task<string> DeleteVehicle(long id);
     }
 }
