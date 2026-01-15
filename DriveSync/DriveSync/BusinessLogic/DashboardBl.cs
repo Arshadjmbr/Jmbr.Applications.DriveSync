@@ -23,5 +23,9 @@ namespace DriveSync.BusinessLogic
         {
             return await mDashboardBr.UpdateAssignment(id, request);
         }
+        public async Task<string> DeleteAssignment(long id)
+        {
+            return await mDashboardBr.DeleteAssignment(id);
+        }
     }
 }

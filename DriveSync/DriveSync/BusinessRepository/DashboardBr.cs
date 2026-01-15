@@ -150,5 +150,19 @@ namespace DriveSync.BusinessRepository
             }
         }
             
+        public async Task<string> DeleteAssignment(long id)
+        {
+            var assignment = await mDriveSyncDbContext.Assignments.FindAsync(id);
+            if (assignment == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.NotFound, $"Assignment with ID {id} not found.");
+            }
+
+            assignment.Deleted = 1;
+            assignment.UpdatedDateTime = DateTimeOffset.Now;
+            mDriveSyncDbContext.Assignments.Update(assignment);
+            await mDriveSyncDbContext.SaveChangesAsync();
+            return "Assignment deleted successfully.";
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<string> UpdateFine(long fineId, UpdateFineRequest updateFineRequest);
         Task<PaginatedResponse<GetFineResponse>> GetFines([FromQuery] FinePaginationRequest request, string? searchText);
         Task<List<VehicleDropdownResponse>> GetVehicleDropdown();
+        Task<string> DeleteFine(long fineId);
 
 
     }

@@ -173,5 +173,19 @@ namespace DriveSync.BusinessRepository
             }
             return zones;
         }
+        public async Task<string> DeleteFine(long fineId)
+        {
+            var fine = await mDrivesSyncDbContext.Fines.FindAsync(fineId);
+            if (fine == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.NotFound, $"Fine with ID {fineId} not found.");
+            }
+
+            fine.Deleted = 1;
+            fine.UpdatedDateTime = DateTimeOffset.Now;
+            mDrivesSyncDbContext.Fines.Update(fine);
+            await mDrivesSyncDbContext.SaveChangesAsync();
+            return "Fine deleted successfully.";
+        }
     }
 }

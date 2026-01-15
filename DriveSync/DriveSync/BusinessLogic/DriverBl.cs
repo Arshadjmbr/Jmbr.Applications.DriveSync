@@ -45,5 +45,9 @@ namespace DriveSync.BusinessLogic
         {
             return await mDriverBr.GetDriversCount();
         }
+        public async Task<string> DeleteDriver(long id)
+        {
+            return await mDriverBr.DeleteDriver(id);
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace DriveSync.BusinessLogic.IBusinesLogic
         Task<string> AddFine(AddFineRequest addFineRequest);
         Task<string> UpdateFine(long fineId, UpdateFineRequest updateFineRequest);
         Task<List<VehicleDropdownResponse>> GetVehicleDropdown();
+        Task<string> DeleteFine(long fineId);
         Task<PaginatedResponse<GetFineResponse>> GetFines([FromQuery] FinePaginationRequest request, string? searchText);
 
 

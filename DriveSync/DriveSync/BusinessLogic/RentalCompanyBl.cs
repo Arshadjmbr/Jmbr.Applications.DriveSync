@@ -22,5 +22,9 @@ namespace DriveSync.BusinessLogic
         {
             return await mRentalCompanyBr.UpdateCompany(id, updateCompanyRequest);
         }
+        public async Task<string> DeleteCompany(long companyId)
+        {
+            return await mRentalCompanyBr.DeleteCompany(companyId);
+        }
     }
 }

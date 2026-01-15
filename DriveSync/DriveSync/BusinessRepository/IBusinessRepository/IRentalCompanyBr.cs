@@ -9,6 +9,7 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<string> Register(RegisterCompaniesRequest request);
         Task<PaginatedResponse<RentalCompanyResponse>> GetRentalCompanies([FromQuery] FinePaginationRequest request, string? searchText);
         Task<string> UpdateCompany(long companyId, UpdateCompanyRequest updateCompanyRequest);
+        Task<string> DeleteCompany(long companyId);
 
     }
 }

@@ -19,7 +19,8 @@ FROM Assignments a
 JOIN Driver d ON a.DriverId = d.Id
 JOIN Vehicle v ON a.VehicleId = v.Id
 WHERE 
-    d.Deleted = 0 
+    a.Deleted = 0
+    AND d.Deleted = 0 
     AND v.Deleted = 0
     AND (
         @searchText IS NULL OR

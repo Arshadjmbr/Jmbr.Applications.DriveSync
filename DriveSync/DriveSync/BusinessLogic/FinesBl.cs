@@ -25,5 +25,9 @@ namespace DriveSync.BusinessLogic
         {
             return await mFinesBr.GetVehicleDropdown();
         }
+        public async Task<string> DeleteFine(long fineId)
+        {
+            return await mFinesBr.DeleteFine(fineId);
+        }
     }
 }

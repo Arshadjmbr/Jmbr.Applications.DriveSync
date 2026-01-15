@@ -68,5 +68,19 @@ namespace DriveSync.Controllers
                 return StatusCode(ex.StatusCode, new { error = ex.Message });
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteFine(long id)
+        {
+            try
+            {
+                var response = await mFinesBl.DeleteFine(id);
+                return Ok(response);
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
     }
 }

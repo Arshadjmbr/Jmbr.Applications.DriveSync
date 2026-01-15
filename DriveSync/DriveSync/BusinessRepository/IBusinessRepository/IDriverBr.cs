@@ -14,6 +14,7 @@ namespace DriveSync.BusinessRepository.IBusinessRepository
         Task<string> EditDriver(long Id, EditDriverRequest editDriverRequest);
         Task<string> BulkUploadDrivers(List<BulkDriverRequest> driverList);
         Task<DriversCountResponse> GetDriversCount();
+        Task<string> DeleteDriver(long id);
 
     }
 }

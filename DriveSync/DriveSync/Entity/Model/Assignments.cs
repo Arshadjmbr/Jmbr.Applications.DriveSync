@@ -12,5 +12,6 @@
         public string? Comments { get; set; }
         public string? Remarks { get; set; }
         public int Status { get; set; }
+        public int Deleted { get; set; }
     }
 }

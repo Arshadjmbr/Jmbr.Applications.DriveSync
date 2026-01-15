@@ -41,12 +41,25 @@ namespace DriveSync.Controllers
         }
 
         [HttpPut("{id}")]
-
-        public async Task<IActionResult> UpdateCompany(long id, [FromBody] UpdateCompanyRequest updateCompanyRequest)
+        public async Task<IActionResult> UpdateRentalCompany(long id, [FromBody] UpdateCompanyRequest request)
         {
             try
             {
-                var response = await mRentalCompanyBl.UpdateCompany(id, updateCompanyRequest);
+                var result = await mRentalCompanyBl.UpdateCompany(id, request);
+                return Ok(new { message = result });
+            }
+            catch (PlatformException ex)
+            {
+                return StatusCode(ex.StatusCode, new { error = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCompany(long id)
+        {
+            try
+            {
+                var response = await mRentalCompanyBl.DeleteCompany(id);
                 return Ok(response);
             }
             catch (PlatformException ex)

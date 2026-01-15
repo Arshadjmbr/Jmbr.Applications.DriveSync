@@ -128,5 +128,24 @@ namespace DriveSync.BusinessRepository
             }
             return response;
         }
+        public async Task<string> DeleteVehicle(long id)
+        {
+            var vehicle = await mDriveSyncDbContext.Vehicle.FindAsync(id);
+            if (vehicle == null)
+            {
+                throw new PlatformException((int)HttpStatusCode.NotFound, $"Vehicle with ID {id} not found.");
+            }
+
+            if (vehicle.Status == CommonConstants.VEHICLE_ASSIGNED)
+            {
+                throw new PlatformException((int)HttpStatusCode.Conflict, "The vehicle is assigned and cannot be deleted.");
+            }
+
+            vehicle.Deleted = 1;
+            vehicle.UpdatedDateTime = DateTimeOffset.Now;
+            mDriveSyncDbContext.Vehicle.Update(vehicle);
+            await mDriveSyncDbContext.SaveChangesAsync();
+            return "Vehicle deleted successfully.";
+        }
     }
 }
